@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Brick.iml" filepath="$PROJECT_DIR$/Brick.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/brickfw-annotation/brickfw-annotation.iml" filepath="$PROJECT_DIR$/brickfw-annotation/brickfw-annotation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/brickfw-compiler/brickfw-compiler.iml" filepath="$PROJECT_DIR$/brickfw-compiler/brickfw-compiler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/brickfw-source/brickfw-source.iml" filepath="$PROJECT_DIR$/brickfw-source/brickfw-source.iml" />
+    </modules>
+  </component>
+</project>
