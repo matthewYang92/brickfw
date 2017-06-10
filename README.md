@@ -1,0 +1,2 @@
+# BrickRecyclerFw
+一个基于RecyclerView封装的列表框架，用注解快速实现列表
