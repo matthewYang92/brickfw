@@ -51,7 +51,7 @@ public class BrickRecyclerView extends RecyclerView {
      *
      * @param data
      */
-    public void setBrickData(List<BrickInfo> data) {
+    public void setBrickList(List<BrickInfo> data) {
         mCompletedBrickInfoList = data;
         setCompletedData(mCompletedBrickInfoList);
     }
@@ -60,11 +60,60 @@ public class BrickRecyclerView extends RecyclerView {
      * 设置源数据
      * @param extraMap
      */
-    public void setData(Map<String, Object> extraMap) {
+    public void setDataList(Map<String, Object> extraMap) {
         mCompletedBrickInfoList.clear();
         for (String type : extraMap.keySet()) {
             mCompletedBrickInfoList.add(new BrickInfo(type, extraMap.get(type)));
         }
+        setCompletedData(mCompletedBrickInfoList);
+    }
+
+    /**
+     * 添加Brick数据列表
+     * @param data
+     */
+    public void addBrickList(List<BrickInfo> data) {
+        mCompletedBrickInfoList.addAll(data);
+        setCompletedData(mCompletedBrickInfoList);
+    }
+
+    /**
+     * 添加源数据列表
+     * @param data
+     */
+    public void addDataList(Map<String, Object> data) {
+        for (String type : data.keySet()) {
+            mCompletedBrickInfoList.add(new BrickInfo(type, data.get(type)));
+        }
+        setCompletedData(mCompletedBrickInfoList);
+    }
+
+    /**
+     * 添加Brick数据
+     * @param data
+     */
+    public void addBrick(BrickInfo data) {
+        mCompletedBrickInfoList.add(data);
+        setCompletedData(mCompletedBrickInfoList);
+    }
+
+    /**
+     * 添加源数据
+     * @param type
+     * @param extra
+     */
+    public void addData(String type, Object extra) {
+        addBrick(new BrickInfo(type, extra));
+    }
+
+    /**
+     * 添加源数据
+     * @param type
+     * @param extra
+     * @param columns 列数
+     */
+    public void addData(String type, Object extra, int columns) {
+        mCompletedBrickInfoList.add(new BrickInfo(type, extra, columns));
         setCompletedData(mCompletedBrickInfoList);
     }
 
@@ -81,38 +130,8 @@ public class BrickRecyclerView extends RecyclerView {
        return mAdapter.getItemCount();
     }
 
-    public void clearData(){
+    public void clear(){
         mCompletedBrickInfoList.clear();
-        setCompletedData(mCompletedBrickInfoList);
-    }
-
-    /**
-     * 添加Brick数据
-     * @param data
-     */
-    public void addBrickData(BrickInfo data) {
-        mCompletedBrickInfoList.add(data);
-        setCompletedData(mCompletedBrickInfoList);
-    }
-
-    /**
-     * 添加源数据
-     * @param type
-     * @param extra
-     */
-    public void addData(String type, Object extra) {
-        mCompletedBrickInfoList.add(new BrickInfo(type, extra));
-        setCompletedData(mCompletedBrickInfoList);
-    }
-
-    /**
-     * 添加源数据
-     * @param type
-     * @param extra
-     * @param columns 列数
-     */
-    public void addData(String type, Object extra, int columns) {
-        mCompletedBrickInfoList.add(new BrickInfo(type, extra, columns));
         setCompletedData(mCompletedBrickInfoList);
     }
 

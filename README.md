@@ -13,7 +13,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.1'
+        ...
         maven { url 'https://dl.bintray.com/matthew92/maven' }
     }
 }
@@ -24,6 +24,7 @@ Add this in your app build.gradle:
 
 ```java
 dependencies {
+    ...
     compile 'io.yang:brickfw-source:1.0'
     compile 'io.yang:brickfw-annotation:1.0'
     annotationProcessor 'io.yang:brickfw-compiler:1.0'
@@ -32,12 +33,12 @@ dependencies {
 
 ## 代码使用
 
-使用方法：
-1.通过注解@BrickView(value = "type")定义itemView
-2.BrickRecyclerView.addData("type", data)生成列表
+使用方法：＜/br＞
+1：通过注解@BrickView(value = "type")定义itemView</br>
+2：BrickRecyclerView.addData("type", data)生成列表</br>
 更多用法详见demo
 
-简单点击事件通过注解@OnBrickItemClick, @OnBrickItemLongClick处理，用法与ButterKnife相似
+简单点击事件通过注解@OnBrickItemClick, @OnBrickItemLongClick处理，用法与ButterKnife相似</br>
 复杂事件详解见demo
 
 ### 生成BrickRecyclerView列表
@@ -96,14 +97,14 @@ public class ImageTextView extends FrameLayout {
     }
 ```
 
-### 关于列表模块数据包装类BrickInfo，通过BrickRecyclerView.addBrickData(BrickInfo info)方法往列表里添加模块数据
+### 关于模块数据类BrickInfo
 ```java
     String mType;           // 模块类型
     Object mExtra;          // 本地字段，用于存储不同模块设置的个性数据
     int mColumns = 1;      //此模块的占位标识，默认为1，即一行一个模块
 ```
 
-### 关于BrickRecyclerView的一些常见方法
+### BrickRecyclerView的一些常用方法
 ```java
     setOrientation(int orientation); //设置列表方向 HORIZONTAL VERTICAL
 ```
