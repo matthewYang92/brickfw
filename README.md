@@ -33,13 +33,13 @@ dependencies {
 
 ## 代码使用
 
-使用方法：＜/br＞
+使用方法：</br>
 1：通过注解@BrickView(value = "type")定义itemView</br>
-2：BrickRecyclerView.addData("type", data)生成列表</br>
-更多用法详见demo
+2：BrickRecyclerView.addData("type", data)生成列表
 
-简单点击事件通过注解@OnBrickItemClick, @OnBrickItemLongClick处理，用法与ButterKnife相似</br>
-复杂事件详解见demo
+简单点击事件通过注解@OnBrickItemClick, @OnBrickItemLongClick处理，用法与ButterKnife相似
+
+更多用法详见demo
 
 ### 生成BrickRecyclerView列表
 ```java
