@@ -57,7 +57,7 @@ public class BrickRecyclerView extends RecyclerView {
     }
 
     /**
-     * 设置源数据 Map<BrickInfo.type, BrickInfo.extra>
+     * 设置源数据
      * @param extraMap
      */
     public void setData(Map<String, Object> extraMap) {

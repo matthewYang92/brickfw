@@ -1,1 +1,1 @@
-include ':app', ':brickfw-source', ':brickfw-compiler', ':brickfw-annotation'
+include ':demo', ':brickfw-source', ':brickfw-compiler', ':brickfw-annotation'
