@@ -9,7 +9,6 @@ import yang.brickfw.OnBrickEvent;
 import yang.brickfw.OnBrickItemClick;
 import yang.brickfw.OnBrickItemLongClick;
 import yang.brickviewdemo.entity.ImageText;
-import yang.brickviewdemo.widget.ImageTextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,13 +29,6 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < 5; i++) {
             brickRecyclerView.addData("image_and_text", new ImageText(url, content));
         }
-    }
-
-    //@OnBrickItemClick("image_and_text")
-    public void onClickImageText(ImageTextView imageTextView) {
-        Toast.makeText(getApplicationContext(),
-                String.format("onClick class %s hashCode %s", imageTextView.getClass(), imageTextView.hashCode())
-                , Toast.LENGTH_LONG).show();
     }
 
     @OnBrickItemClick("simple_image")
