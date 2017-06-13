@@ -74,7 +74,7 @@ public class ImageTextView extends FrameLayout {
     }
 
     //自定义事件
-    @OnBrickEvent(value = BrickType.IMAGE_TEXT, eventType = 0)
+    @OnBrickEvent(value = "image_and_text", eventType = 0)
     public void handleImageTextClickEvent() {
         ...
     }
