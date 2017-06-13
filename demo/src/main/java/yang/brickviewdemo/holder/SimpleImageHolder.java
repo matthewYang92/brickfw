@@ -8,11 +8,12 @@ import yang.brickfw.AbstractBrickHolder;
 import yang.brickfw.BrickHolder;
 import yang.brickfw.BrickInfo;
 import yang.brickfw.BrickView;
+import yang.brickviewdemo.BrickType;
 
-@BrickHolder("simple_image")
+@BrickHolder(BrickType.IMAGE)
 public class SimpleImageHolder extends AbstractBrickHolder {
 
-    @BrickView("simple_image")
+    @BrickView(BrickType.IMAGE)
     private ImageView imageView;
 
     public SimpleImageHolder(@NonNull View view) {

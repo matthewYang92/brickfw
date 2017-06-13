@@ -5,22 +5,7 @@
 
 ## Gradle依赖
 
-Add this in your root build.gradle:
-
-```java
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        ...
-        maven { url 'https://dl.bintray.com/matthew92/maven' }
-    }
-}
-```
-
 Add this in your app build.gradle:
-
 
 ```java
 dependencies {
