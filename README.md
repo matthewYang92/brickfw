@@ -1,4 +1,4 @@
-# BrickRecyclerView
+# BrickRecyclerView Framework
 
 ## 背景
 基于RecyclerView封装的列表框架，快速实现多类型列表UI，注解编程，解放你的劳动力，最快只需要写一个View！
@@ -68,17 +68,6 @@ public class ImageTextView extends FrameLayout {
         View root = inflate(context, R.layout.view_image_text, this);
         image = (ImageView) root.findViewById(R.id.image);
         text = (TextView) root.findViewById(R.id.text);
-        image.setOnClickListener(new OnClickListener() {
-            @Override public void onClick(View v) {
-                brickEventHandler.handleBrickEvent(0, image);
-            }
-        });
-        image.setOnLongClickListener(new OnLongClickListener() {
-            @Override public boolean onLongClick(View v) {
-                brickEventHandler.handleBrickEvent(1, text);
-                return true;
-            }
-        });
     }
 
     @SetBrickData("image_and_text")
@@ -91,9 +80,18 @@ public class ImageTextView extends FrameLayout {
 
 ### 关于事件响应
 ```java
+    //设置事件处理者
+    brickRecyclerView.setEventHandler(this);
+
     @OnBrickItemClick("simple_image")
     public void onClickImage(ImageView imageView) {
-        Log.v(TAG, String.format("onClick class %s hashCode %s", imageView.getClass(), imageView.hashCode());
+        ...
+    }
+
+    //自定义事件
+    @OnBrickEvent(value = BrickType.IMAGE_TEXT, eventType = 0)
+    public void handleImageTextClickEvent() {
+        ...
     }
 ```
 

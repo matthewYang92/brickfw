@@ -57,18 +57,6 @@ public class BrickRecyclerView extends RecyclerView {
     }
 
     /**
-     * 设置源数据
-     * @param extraMap
-     */
-    public void setDataList(Map<String, Object> extraMap) {
-        mCompletedBrickInfoList.clear();
-        for (String type : extraMap.keySet()) {
-            mCompletedBrickInfoList.add(new BrickInfo(type, extraMap.get(type)));
-        }
-        setCompletedData(mCompletedBrickInfoList);
-    }
-
-    /**
      * 添加Brick数据列表
      * @param data
      */

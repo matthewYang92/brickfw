@@ -25,10 +25,10 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
-import yang.brickfw.File.BuilderFileBuilder;
-import yang.brickfw.File.EventBinderFileBuilder;
-import yang.brickfw.File.HolderFileBuilder;
-import yang.brickfw.File.InitializerFileBuilder;
+import yang.brickfw.file.BuilderFileBuilder;
+import yang.brickfw.file.EventBinderFileBuilder;
+import yang.brickfw.file.HolderFileBuilder;
+import yang.brickfw.file.InitializerFileBuilder;
 
 /**
  * author: Matthew Yang on 17/6/7

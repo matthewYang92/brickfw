@@ -1,4 +1,4 @@
-package yang.brickfw.File;
+package yang.brickfw.file;
 
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;

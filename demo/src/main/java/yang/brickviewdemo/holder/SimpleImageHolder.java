@@ -1,4 +1,4 @@
-package yang.brickviewdemo.bricks;
+package yang.brickviewdemo.holder;
 
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -20,7 +20,8 @@ public class SimpleImageHolder extends AbstractBrickHolder {
         imageView = (ImageView) view;
     }
 
-    @Override public void setBrickInfo(BrickInfo info) {
+    @Override
+    public void setBrickInfo(BrickInfo info) {
         String url = (String) info.getExtra();
         Glide.with(imageView.getContext()).load(url).into(imageView);
     }
