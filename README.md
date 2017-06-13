@@ -25,9 +25,9 @@ Add this in your app build.gradle:
 ```java
 dependencies {
     ...
-    compile 'io.yang:brickfw-source:1.0'
+    compile 'io.yang:brickfw-source:1.1'
     compile 'io.yang:brickfw-annotation:1.0'
-    annotationProcessor 'io.yang:brickfw-compiler:1.0'
+    annotationProcessor 'io.yang:brickfw-compiler:1.1'
 }
 ```
 
