@@ -57,6 +57,19 @@ public class BrickRecyclerView extends RecyclerView {
     }
 
     /**
+     * 设置单一类型数据列表
+     * @param type
+     * @param datas
+     */
+    public void setSingleTypeData(String type, List<Object> datas) {
+        List<BrickInfo> infos = new ArrayList<>();
+        for (Object data : datas) {
+            infos.add(new BrickInfo(type, data));
+        }
+        setBrickList(infos);
+    }
+
+    /**
      * 添加Brick数据列表
      * @param data
      */
@@ -72,6 +85,17 @@ public class BrickRecyclerView extends RecyclerView {
     public void addDataList(Map<String, Object> data) {
         for (String type : data.keySet()) {
             mCompletedBrickInfoList.add(new BrickInfo(type, data.get(type)));
+        }
+        setCompletedData(mCompletedBrickInfoList);
+    }
+
+    /**
+     * 添加单一类型列表
+     * @param datas
+     */
+    public void addSingleDataList(String type, List<Object> datas) {
+        for (Object data : datas) {
+            mCompletedBrickInfoList.add(new BrickInfo(type, data));
         }
         setCompletedData(mCompletedBrickInfoList);
     }
