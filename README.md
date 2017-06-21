@@ -10,9 +10,9 @@ Add this in your app build.gradle:
 ```java
 dependencies {
     ...
-    compile 'io.yang:brickfw-source:1.3'
-    compile 'io.yang:brickfw-annotation:1.3'
-    annotationProcessor 'io.yang:brickfw-compiler:1.3'
+    compile 'io.yang:brickfw-source:1.4'
+    compile 'io.yang:brickfw-annotation:1.4'
+    annotationProcessor 'io.yang:brickfw-compiler:1.4'
 }
 ```
 
@@ -69,13 +69,13 @@ public class ImageTextView extends FrameLayout {
     brickRecyclerView.setEventHandler(this);
 
     @OnBrickItemClick("simple_image")
-    public void onClickImage(ImageView imageView) {
+    public void onClickImage(BrickInfo info, ImageView imageView) {
         ...
     }
 
     //自定义事件
     @OnBrickEvent(value = "image_and_text", eventType = 0)
-    public void handleImageTextClickEvent() {
+    public void handleImageTextClickEvent(BrickInfo info, Object... params) {
         ...
     }
 ```
@@ -90,6 +90,8 @@ public class ImageTextView extends FrameLayout {
 ### BrickRecyclerView的一些常用方法
 ```java
     setOrientation(int orientation); //设置列表方向 HORIZONTAL VERTICAL
+    setStaggeredLayout(int columns); //设置列表为瀑布流布局
+    setNormalLayout(Context context); //设置列表为普通布局 默认行数为1
 ```
 
 
