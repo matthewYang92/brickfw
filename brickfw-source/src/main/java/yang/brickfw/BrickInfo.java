@@ -12,6 +12,8 @@ public class BrickInfo {
 
     private int mColumns = 1;
 
+    private BrickPositionInfo positionInfo; //位置信息 加载到列表后赋值
+
     public BrickInfo(String type) {
         mType = type;
     }
@@ -59,6 +61,14 @@ public class BrickInfo {
 
     public void setColumns(int mColumns) {
         this.mColumns = mColumns;
+    }
+
+    public BrickPositionInfo getPositionInfo() {
+        return positionInfo;
+    }
+
+    public void setPositionInfo(BrickPositionInfo positionInfo) {
+        this.positionInfo = positionInfo;
     }
 
     @Override public String toString() {

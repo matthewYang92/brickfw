@@ -42,16 +42,16 @@ public class EventBinderFileBuilder {
         MethodSpec.Builder handleEventBuilder = MethodSpec.methodBuilder("handleClick")
                 .addModifiers(Modifier.PRIVATE)
                 .addParameter(ClassName.get(typeElement.asType()), "handler")
-                .addParameter(ClassName.get(String.class), "type")
+                .addParameter(ParameterSpec.builder(ClassName.get(packageName, "BrickInfo"), "info").build())
                 .addParameter(ClassName.get("android.view", "View"), "itemView");
         Map<Element, List<ExecutableElement>> eventMap = eventElement.getViewEventElementMap();
         for (Element viewElement : eventMap.keySet()) {
             for (ExecutableElement methodElement : eventMap.get(viewElement)) {
                 OnBrickItemClick clickAnnotation = methodElement.getAnnotation(OnBrickItemClick.class);
                 if (null != clickAnnotation) {
-                    handleEventBuilder.beginControlFlow("if(type.equals($S))",
+                    handleEventBuilder.beginControlFlow("if(info.getType().equals($S))",
                             clickAnnotation.value())
-                            .addStatement("handler.$N(($T) itemView)", methodElement.getSimpleName(), viewElement.asType())
+                            .addStatement("handler.$N(info, ($T) itemView)", methodElement.getSimpleName(), viewElement.asType())
                             .endControlFlow();
                 }
             }
@@ -68,15 +68,15 @@ public class EventBinderFileBuilder {
                 .addModifiers(Modifier.PRIVATE)
                 .returns(TypeName.BOOLEAN)
                 .addParameter(ClassName.get(typeElement.asType()), "handler")
-                .addParameter(ClassName.get(String.class), "type")
+                .addParameter(ParameterSpec.builder(ClassName.get(packageName, "BrickInfo"), "info").build())
                 .addParameter(ClassName.get("android.view", "View"), "itemView");
         Map<Element, List<ExecutableElement>> eventMap = eventElement.getViewEventElementMap();
         for (Element viewElement : eventMap.keySet()) {
             for (ExecutableElement methodElement : eventMap.get(viewElement)) {
                 OnBrickItemLongClick longClickAnnotation = methodElement.getAnnotation(OnBrickItemLongClick.class);
                 if (null != longClickAnnotation) {
-                    handleEventBuilder.beginControlFlow("if(type.equals($S))", longClickAnnotation.value())
-                            .addStatement("return handler.$N(($T) itemView)", methodElement.getSimpleName(), viewElement.asType())
+                    handleEventBuilder.beginControlFlow("if(info.getType().equals($S))", longClickAnnotation.value())
+                            .addStatement("return handler.$N(info, ($T) itemView)", methodElement.getSimpleName(), viewElement.asType())
                             .endControlFlow();
                 }
             }
@@ -95,14 +95,15 @@ public class EventBinderFileBuilder {
                 .addParameter(ParameterSpec
                         .builder(ClassName.get(typeElement.asType()), "handler")
                         .addModifiers(Modifier.FINAL).build())
-                .addParameter(ClassName.get(String.class), "type")
+                .addParameter(ParameterSpec.builder(ClassName.get(packageName, "BrickInfo"), "info")
+                        .addModifiers(Modifier.FINAL).build())
                 .addParameter(ClassName.get("android.view", "View"), "itemView");
         Map<Map.Entry<Element, Element>, List<ExecutableElement>> eventMap = eventElement.getBrickEventElementMap();
         for (Map.Entry<Element, Element> entry : eventMap.keySet()) {
             Element handlerElement = entry.getValue();
             Element viewElement = entry.getKey();
             String value = handlerElement.getAnnotation(BrickEventHandler.class).value();
-            handleEventBuilder.beginControlFlow("if(type.equals($S))", value)
+            handleEventBuilder.beginControlFlow("if(info.getType().equals($S))", value)
                     .beginControlFlow("(($T) itemView).$N = new $T()"
                             , viewElement.asType()
                             , handlerElement.getSimpleName()
@@ -113,7 +114,7 @@ public class EventBinderFileBuilder {
                 if (null != brickEventAnnotation) {
                     int eventType = brickEventAnnotation.eventType();
                     handleEventBuilder.beginControlFlow("if (eventType == $L)", eventType)
-                            .addStatement("handler.$N(params)", methodElement.getSimpleName())
+                            .addStatement("handler.$N(info, params)", methodElement.getSimpleName())
                             .endControlFlow();
                 }
             }
@@ -137,7 +138,7 @@ public class EventBinderFileBuilder {
                         .addModifiers(Modifier.FINAL).build())
                 .beginControlFlow("View.OnClickListener onClickListener = new View.OnClickListener()")
                 .beginControlFlow("@Override public void onClick(View v)")
-                .addStatement("handleClick(($T) handler, info.getType(), view)", typeElement.asType())
+                .addStatement("handleClick(($T) handler, info, view)", typeElement.asType())
                 .endControlFlow()
                 .endControlFlow("")
                 .addStatement("view.setOnClickListener(onClickListener)");
@@ -156,7 +157,7 @@ public class EventBinderFileBuilder {
                         .addModifiers(Modifier.FINAL).build())
                 .beginControlFlow("View.OnLongClickListener onLongClickListener = new View.OnLongClickListener()")
                 .beginControlFlow("@Override public boolean onLongClick(View v)")
-                .addStatement("return handleLongClick(($T) handler, info.getType(), view)", typeElement.asType())
+                .addStatement("return handleLongClick(($T) handler, info, view)", typeElement.asType())
                 .endControlFlow()
                 .endControlFlow("")
                 .addStatement("view.setOnLongClickListener(onLongClickListener)");
@@ -173,7 +174,7 @@ public class EventBinderFileBuilder {
                         .addModifiers(Modifier.FINAL).build())
                 .addParameter(ParameterSpec.builder(ClassName.get(packageName, "BrickInfo"), "info")
                         .addModifiers(Modifier.FINAL).build())
-                .addStatement("handleBrickEvent(($T) handler, info.getType(), view)", typeElement.asType());
+                .addStatement("handleBrickEvent(($T) handler, info, view)", typeElement.asType());
         return bindLongClickBuilder.build();
     }
 

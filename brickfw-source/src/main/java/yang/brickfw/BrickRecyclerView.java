@@ -4,13 +4,12 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 /**
  * 装填BrickView的容器
  *
@@ -79,23 +78,20 @@ public class BrickRecyclerView extends RecyclerView {
     }
 
     /**
-     * 添加源数据列表
-     * @param data
+     * 添加单一类型列表
+     * @param datas
      */
-    public void addDataList(Map<String, Object> data) {
-        for (String type : data.keySet()) {
-            mCompletedBrickInfoList.add(new BrickInfo(type, data.get(type)));
-        }
-        setCompletedData(mCompletedBrickInfoList);
+    public void addSingleDataList(String type, List<? extends Object> datas) {
+        addSingleDataList(type, datas, 1);
     }
 
     /**
      * 添加单一类型列表
      * @param datas
      */
-    public void addSingleDataList(String type, List<Object> datas) {
+    public void addSingleDataList(String type, List<? extends Object> datas, int columns) {
         for (Object data : datas) {
-            mCompletedBrickInfoList.add(new BrickInfo(type, data));
+            mCompletedBrickInfoList.add(new BrickInfo(type, data, columns));
         }
         setCompletedData(mCompletedBrickInfoList);
     }
@@ -176,6 +172,7 @@ public class BrickRecyclerView extends RecyclerView {
             p.setIdxInGroup(idxInGroup);
             p.setGroupSize(groupSize);
             mBrickPositionCache.put(i, p);
+            current.setPositionInfo(p);
 
             if (++idxInGroup == groupSize) {
                 idxInGroup = 0;
@@ -220,9 +217,18 @@ public class BrickRecyclerView extends RecyclerView {
 
     private void init(Context context, @Nullable AttributeSet attrs) {
         mAdapter = new BrickRecyclerAdapter();
-        setLayoutManager(createLayoutManager(context));
+        setNormalLayout(context);
         setAdapter(mAdapter);
         addItemDecoration(new BrickRecyclerItemDecoration(context));
+    }
+
+    public void setStaggeredLayout(int columns) {
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(columns, VERTICAL);
+        setLayoutManager(layoutManager);
+    }
+
+    public void setNormalLayout(Context context) {
+        setLayoutManager(createLayoutManager(context));
     }
 
     private LayoutManager createLayoutManager(Context context) {

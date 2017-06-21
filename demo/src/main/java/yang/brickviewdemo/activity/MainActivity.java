@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setImageTextList() {
+        brickRecyclerView.clear();
         List<BrickInfo> brickInfos = new ArrayList<>();
         for (int i = 0; i < imageTexts.length; i++) {
             ImageText imageText = new ImageText(imageUrls[i], imageTexts[i]);
@@ -107,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @OnBrickItemClick(BrickType.TEXT)
-    public void onClickText(TextView textView) {
+    public void onClickText(BrickInfo info, TextView textView) {
         String content = textView.getText().toString();
         switch (content) {
             case "图片列表":
@@ -126,24 +127,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @OnBrickItemClick(BrickType.IMAGE)
-    public void onClickImage(ImageView imageView) {
-        showToast("onClick Image hashCode:" + imageView.hashCode());
+    public void onClickImage(BrickInfo info, ImageView imageView) {
+        showToast("onClick Image position:" + info.getPositionInfo().getIdxInGlobal());
     }
 
     @OnBrickItemLongClick(BrickType.IMAGE)
-    public boolean onLongClickImage(ImageView imageView) {
+    public boolean onLongClickImage(BrickInfo info, ImageView imageView) {
         showToast("onLongClick Image hashCode:" + imageView.hashCode());
         return true;
     }
 
     @OnBrickEvent(value = BrickType.IMAGE_TEXT, eventType = 0)
-    public void handleImageTextClickEvent(Object... args) {
+    public void handleImageTextClickEvent(BrickInfo info, Object... args) {
         ImageText data = (ImageText) args[0];
         showToast("handleImageTextClickEvent content : " + data.getContent());
     }
 
     @OnBrickEvent(value = BrickType.IMAGE_TEXT, eventType = 1)
-    public void handleImageTextLongClickEvent(Object... args) {
+    public void handleImageTextLongClickEvent(BrickInfo info, Object... args) {
         ImageText data = (ImageText) args[0];
         showToast("handleImageTextLongClickEvent content : " + data.getContent());
     }
@@ -157,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getTitle().equals("reset")) {
+            brickRecyclerView.setNormalLayout(getApplicationContext());
             setTextList();
         }
         return super.onOptionsItemSelected(item);
