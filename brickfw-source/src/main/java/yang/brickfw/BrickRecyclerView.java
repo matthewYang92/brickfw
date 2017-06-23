@@ -219,7 +219,7 @@ public class BrickRecyclerView extends RecyclerView {
         mAdapter = new BrickRecyclerAdapter();
         setNormalLayout(context);
         setAdapter(mAdapter);
-        addItemDecoration(new BrickRecyclerItemDecoration(context));
+        addItemDecoration(new BrickRecyclerItemDecoration());
     }
 
     public void setStaggeredLayout(int columns) {
@@ -228,12 +228,20 @@ public class BrickRecyclerView extends RecyclerView {
     }
 
     public void setNormalLayout(Context context) {
-        setLayoutManager(createLayoutManager(context));
+        setNormalLayout(context, 2);
     }
 
-    private LayoutManager createLayoutManager(Context context) {
-        final int SPAN_COUNT = 2;
-        GridLayoutManager layoutManager = new GridLayoutManager(context, SPAN_COUNT);
+    /**
+     * 设置普通布局
+     * @param context
+     * @param spanSize 占位大小 把一行分为spanSize个位置
+     */
+    public void setNormalLayout(Context context, int spanSize) {
+        setLayoutManager(createLayoutManager(context, spanSize));
+    }
+
+    private LayoutManager createLayoutManager(Context context, final int spanSize) {
+        GridLayoutManager layoutManager = new GridLayoutManager(context, spanSize);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
@@ -244,11 +252,11 @@ public class BrickRecyclerView extends RecyclerView {
                 }
 
                 if (cols <= 0) {
-                    return SPAN_COUNT;
-                } else if (cols > SPAN_COUNT) {
+                    return spanSize;
+                } else if (cols > spanSize) {
                     return 1;
                 } else {
-                    return SPAN_COUNT / cols;
+                    return spanSize / cols;
                 }
             }
         });

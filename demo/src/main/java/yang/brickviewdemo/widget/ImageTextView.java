@@ -1,6 +1,7 @@
 package yang.brickviewdemo.widget;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -12,7 +13,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import yang.brickfw.BrickEventHandler;
 import yang.brickfw.BrickView;
+import yang.brickfw.DecorationInfo;
 import yang.brickfw.IBrickEventHandler;
+import yang.brickfw.IDecoration;
 import yang.brickfw.SetBrickData;
 import yang.brickviewdemo.BrickType;
 import yang.brickviewdemo.R;
@@ -24,7 +27,7 @@ import yang.brickviewdemo.entity.ImageText;
  */
 
 @BrickView(BrickType.IMAGE_TEXT)
-public class ImageTextView extends FrameLayout {
+public class ImageTextView extends FrameLayout implements IDecoration {
 
     private ImageView image;
     private TextView text;
@@ -78,5 +81,13 @@ public class ImageTextView extends FrameLayout {
 
     public ImageText getData() {
         return data;
+    }
+
+    @Override
+    public void updateDecoration(DecorationInfo decorationInfo) {
+        decorationInfo.setDividerLeft(Color.RED, 5);
+        decorationInfo.setDividerTop(Color.RED, 5);
+        //decorationInfo.setDividerRight(Color.BLUE, 5);
+        //decorationInfo.setDividerBottom(Color.BLUE, 5);
     }
 }
