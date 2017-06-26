@@ -3,6 +3,7 @@ package yang.brickfw;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
@@ -60,7 +61,7 @@ public class BrickRecyclerView extends RecyclerView {
      * @param type
      * @param datas
      */
-    public void setSingleTypeData(String type, List<Object> datas) {
+    public void setSingleTypeData(String type, List<? extends Object> datas) {
         List<BrickInfo> infos = new ArrayList<>();
         for (Object data : datas) {
             infos.add(new BrickInfo(type, data));
@@ -126,8 +127,12 @@ public class BrickRecyclerView extends RecyclerView {
     }
 
     public void setOrientation(int orientation) {
-        GridLayoutManager gridLayoutManager = (GridLayoutManager) getLayoutManager();
-        gridLayoutManager.setOrientation(orientation);
+        LayoutManager layoutManager = getLayoutManager();
+        if (layoutManager instanceof LinearLayoutManager) {
+            ((LinearLayoutManager) layoutManager).setOrientation(orientation);
+        } else if (layoutManager instanceof StaggeredGridLayoutManager) {
+            ((StaggeredGridLayoutManager) layoutManager).setOrientation(orientation);
+        }
     }
 
     /**
@@ -217,18 +222,30 @@ public class BrickRecyclerView extends RecyclerView {
 
     private void init(Context context, @Nullable AttributeSet attrs) {
         mAdapter = new BrickRecyclerAdapter();
-        setNormalLayout(context);
+        setLayoutManager(createLayoutManager(context, 1));
         setAdapter(mAdapter);
         addItemDecoration(new BrickRecyclerItemDecoration());
     }
 
-    public void setStaggeredLayout(int columns) {
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(columns, VERTICAL);
-        setLayoutManager(layoutManager);
+    /**
+     * 设置瀑布流布局
+     * @param columns
+     * @param orientation
+     */
+    public void setStaggeredLayout(int columns, int orientation) {
+        LayoutManager layoutManager = getLayoutManager();
+        if (null != layoutManager) {
+            if (layoutManager instanceof StaggeredGridLayoutManager) {
+                StaggeredGridLayoutManager staggeredGridLayoutManager = (StaggeredGridLayoutManager) layoutManager;
+                staggeredGridLayoutManager.setSpanCount(columns);
+                return;
+            }
+        }
+        setLayoutManager(createStaggeredGridLayoutManager(columns, orientation));
     }
 
-    public void setNormalLayout(Context context) {
-        setNormalLayout(context, 2);
+    private LayoutManager createStaggeredGridLayoutManager(int columns, int orientation) {
+        return new StaggeredGridLayoutManager(columns, orientation);
     }
 
     /**
@@ -237,11 +254,25 @@ public class BrickRecyclerView extends RecyclerView {
      * @param spanSize 占位大小 把一行分为spanSize个位置
      */
     public void setNormalLayout(Context context, int spanSize) {
+        LayoutManager layoutManager = getLayoutManager();
+        if (null != layoutManager) {
+            if (layoutManager instanceof GridLayoutManager) {
+                GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
+                setGridLayoutColumns(gridLayoutManager, spanSize);
+                return;
+            }
+        }
         setLayoutManager(createLayoutManager(context, spanSize));
     }
 
     private LayoutManager createLayoutManager(Context context, final int spanSize) {
         GridLayoutManager layoutManager = new GridLayoutManager(context, spanSize);
+        setGridLayoutColumns(layoutManager, spanSize);
+        return layoutManager;
+    }
+
+    private void setGridLayoutColumns(GridLayoutManager layoutManager, final int spanSize) {
+        layoutManager.setSpanCount(spanSize);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
@@ -260,7 +291,5 @@ public class BrickRecyclerView extends RecyclerView {
                 }
             }
         });
-
-        return layoutManager;
     }
 }

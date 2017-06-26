@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         brickRecyclerView = (BrickRecyclerView) findViewById(R.id.recycler);
         //注册事件响应
         brickRecyclerView.setEventHandler(this);
+        brickRecyclerView.setNormalLayout(getApplicationContext(), 2);
         setTextList();
     }
 
@@ -158,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getTitle().equals("reset")) {
-            brickRecyclerView.setNormalLayout(getApplicationContext());
+            brickRecyclerView.setNormalLayout(getApplicationContext(), 2);
             setTextList();
         }
         return super.onOptionsItemSelected(item);
