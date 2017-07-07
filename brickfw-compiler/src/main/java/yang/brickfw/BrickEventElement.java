@@ -15,6 +15,15 @@ public class BrickEventElement {
     private TypeElement typeElement;
     private Map<Element, List<ExecutableElement>> viewEventElementMap = new HashMap<>();
     private Map<Map.Entry<Element, Element>, List<ExecutableElement>> brickEventElementMap = new HashMap<>();
+    private String packageName;
+
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
+    }
 
     public TypeElement getTypeElement() {
         return typeElement;

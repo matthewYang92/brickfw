@@ -43,6 +43,7 @@ public class BrickProcessor extends AbstractProcessor {
     private Messager mMessager; //日志相关的辅助类
     private Types mTypes; //Type相关辅助类
     private String packageName = "yang.brickfw";
+    private String initPackageName = "yang.brickfw";
 
     private Map<String, BrickElement> brickElementMap = new HashMap<>();
     private Map<Element, BrickEventElement> brickEventElementMap = new HashMap<>();
@@ -66,7 +67,12 @@ public class BrickProcessor extends AbstractProcessor {
         Set<? extends Element> brickEventElementSet = new HashSet<>();
         Set<? extends Element> brickEventHandlerElementSet = new HashSet<>();
         for (TypeElement typeElement : annotations) {
-            if (TypeName.get(typeElement.asType()).equals(TypeName.get(BrickView.class))) {
+            if (TypeName.get(typeElement.asType()).equals(TypeName.get(BrickInit.class))) {
+                for (Element initElement : roundEnv.getElementsAnnotatedWith(typeElement)) {
+                    initPackageName = mElementUtils.getPackageOf(initElement).toString();
+                    note("annotations brickInit : %s", initPackageName);
+                }
+            } else if (TypeName.get(typeElement.asType()).equals(TypeName.get(BrickView.class))) {
                 viewElementSet = roundEnv.getElementsAnnotatedWith(typeElement);
                 note("annotations viewElementSet : %s", viewElementSet);
             } else if (TypeName.get(typeElement.asType()).equals(TypeName.get(BrickHolder.class))) {
@@ -113,6 +119,7 @@ public class BrickProcessor extends AbstractProcessor {
             BrickEventElement eventElement = brickEventElementMap.get(typeElement);
             if (null == eventElement) {
                 eventElement = new BrickEventElement();
+                eventElement.setPackageName(mElementUtils.getPackageOf(typeElement).toString());
                 brickEventElementMap.put(typeElement, eventElement);
             }
             String value = getBrickAnnotationValue(element, eventAnnotation);
@@ -134,6 +141,7 @@ public class BrickProcessor extends AbstractProcessor {
             BrickEventElement eventElement = brickEventElementMap.get(typeElement);
             if (null == eventElement) {
                 eventElement = new BrickEventElement();
+                eventElement.setPackageName(typeElement.getEnclosingElement().toString());
                 brickEventElementMap.put(typeElement, eventElement);
             }
             String value = getBrickAnnotationValue(element, OnBrickEvent.class);
@@ -216,6 +224,9 @@ public class BrickProcessor extends AbstractProcessor {
                 brickElementMap.put(viewValue, brickElement);
             }
             brickElement.setViewElement(viewElement);
+            if (viewElement instanceof TypeElement) {
+                brickElement.setPackageName(mElementUtils.getPackageOf(viewElement).toString());
+            }
         }
         for (Element holderElement : holderElementSet) {
             String holderValue = holderElement.getAnnotation(BrickHolder.class).value();
@@ -225,6 +236,7 @@ public class BrickProcessor extends AbstractProcessor {
                 brickElementMap.put(holderValue, brickElement);
             }
             brickElement.setHolderElement(holderElement);
+            brickElement.setPackageName(mElementUtils.getPackageOf(holderElement).toString());
         }
         for (Element dataMethodElement : dataMethodElementSet) {
             String dataMethodValue = dataMethodElement.getAnnotation(SetBrickData.class).value();
@@ -282,7 +294,7 @@ public class BrickProcessor extends AbstractProcessor {
     }
 
     private void genInitializerFile() {
-        writeFile(new InitializerFileBuilder(packageName, brickElementMap, brickEventElementMap.keySet()).build());
+        writeFile(new InitializerFileBuilder(packageName, initPackageName, brickElementMap, brickEventElementMap.keySet()).build());
     }
 
     private void writeFile(JavaFile javaFile) {
@@ -301,6 +313,7 @@ public class BrickProcessor extends AbstractProcessor {
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> types = new LinkedHashSet<>();
+        types.add(BrickInit.class.getCanonicalName());
         types.add(BrickHolder.class.getCanonicalName());
         types.add(BrickView.class.getCanonicalName());
         types.add(SetBrickData.class.getCanonicalName());

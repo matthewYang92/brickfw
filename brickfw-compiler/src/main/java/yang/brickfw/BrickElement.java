@@ -13,10 +13,18 @@ public class BrickElement {
     public static final int GEN_HOLDER = 1;
     public static final int GEN_BUILDER = 2;
 
+    private String packageName;
     private Element holderElement;
     private Element viewElement;
     private ExecutableElement dataMethodElement;
 
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
+    }
 
     public Element getHolderElement() {
         return holderElement;

@@ -1,5 +1,6 @@
 package yang.brickfw;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -22,11 +23,14 @@ public class BrickFactory {
     private static final Map<String, AbstractBrickBuilder> sBrickBuilders = new HashMap<>();
     private static final Map<String, AbstractBrickEventBinder> sBrickEventBinderMap = new HashMap<>(); // Map<handlerClassName, binder>
 
-
-    public static void init() {
+    /**
+     * 初始化
+     * @param clazz BrickInit注解的class
+     */
+    public static void init(Class clazz) {
         try {
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            Class<?> brickInitClass = classLoader.loadClass(BrickHolder.class.getPackage().getName() + ".BrickInitializer");
+            Class<?> brickInitClass = classLoader.loadClass(clazz.getPackage().getName() + ".BrickInitializer");
             brickInitClass.getMethod("initBrickBuilderMap", Map.class).invoke(null, sBrickBuilders);
             brickInitClass.getMethod("initBrickBinderMap", Map.class).invoke(null, sBrickEventBinderMap);
         } catch (ClassNotFoundException e) {

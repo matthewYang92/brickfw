@@ -43,7 +43,8 @@ public class BuilderFileBuilder {
      * @return
      */
     private TypeSpec builderClass() {
-        TypeSpec builderClass = TypeSpec.classBuilder(brickElement.getViewSimpleName() + "Builder")
+        String simpleName = brickElement.getHolderSimpleName().toString().replace("Holder", "");
+        TypeSpec builderClass = TypeSpec.classBuilder(simpleName + "Builder")
                 .addModifiers(Modifier.PUBLIC)
                 .addMethod(createMethod())
                 .superclass(ClassName.get(packageName, "AbstractBrickBuilder"))
@@ -52,6 +53,6 @@ public class BuilderFileBuilder {
     }
 
     public JavaFile build() {
-        return JavaFile.builder(packageName, builderClass()).build();
+        return JavaFile.builder(brickElement.getPackageName(), builderClass()).build();
     }
 }

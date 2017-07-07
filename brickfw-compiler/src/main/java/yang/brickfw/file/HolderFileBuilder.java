@@ -95,6 +95,6 @@ public class HolderFileBuilder {
     }
 
     public JavaFile build() {
-        return JavaFile.builder(packageName, builderClass()).build();
+        return JavaFile.builder(brickElement.getPackageName(), builderClass()).build();
     }
 }

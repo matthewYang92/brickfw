@@ -196,6 +196,6 @@ public class EventBinderFileBuilder {
     }
 
     public JavaFile build() {
-        return JavaFile.builder(packageName, eventBinderClass()).build();
+        return JavaFile.builder(eventElement.getPackageName(), eventBinderClass()).build();
     }
 }

@@ -128,24 +128,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @OnBrickItemClick(BrickType.IMAGE)
-    public void onClickImage(BrickInfo info, ImageView imageView) {
+    void onClickImage(BrickInfo info, ImageView imageView) {
         showToast("onClick Image position:" + info.getPositionInfo().getIdxInGlobal());
     }
 
     @OnBrickItemLongClick(BrickType.IMAGE)
-    public boolean onLongClickImage(BrickInfo info, ImageView imageView) {
+    boolean onLongClickImage(BrickInfo info, ImageView imageView) {
         showToast("onLongClick Image hashCode:" + imageView.hashCode());
         return true;
     }
 
     @OnBrickEvent(value = BrickType.IMAGE_TEXT, eventType = 0)
-    public void handleImageTextClickEvent(BrickInfo info, Object... args) {
+    void handleImageTextClickEvent(BrickInfo info, Object... args) {
         ImageText data = (ImageText) args[0];
         showToast("handleImageTextClickEvent content : " + data.getContent());
     }
 
     @OnBrickEvent(value = BrickType.IMAGE_TEXT, eventType = 1)
-    public void handleImageTextLongClickEvent(BrickInfo info, Object... args) {
+    void handleImageTextLongClickEvent(BrickInfo info, Object... args) {
         ImageText data = (ImageText) args[0];
         showToast("handleImageTextLongClickEvent content : " + data.getContent());
     }
