@@ -148,6 +148,18 @@ public class BrickRecyclerView extends RecyclerView {
         setCompletedData(mCompletedBrickInfoList);
     }
 
+    public void update() {
+        mAdapter.notifyDataSetChanged();
+    }
+
+    public void updateRange(int pos, int itemCount) {
+        mAdapter.notifyItemRangeChanged(pos, itemCount);
+    }
+
+    public void updateItem(int pos) {
+        mAdapter.notifyItemChanged(pos);
+    }
+
     private void setCompletedData(List<BrickInfo> data) {
         rebuildPositionCache(data);
         mAdapter.setData(data);
