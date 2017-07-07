@@ -10,8 +10,8 @@ Add this in your app build.gradle:
 ```java
 dependencies {
     ...
-    compile 'io.yang:brickfw-source:1.6'
-    annotationProcessor 'io.yang:brickfw-compiler:1.6'
+    compile 'io.yang:brickfw-source:1.9.1'
+    annotationProcessor 'io.yang:brickfw-compiler:1.9.1'
 }
 ```
 
@@ -24,6 +24,18 @@ dependencies {
 简单点击事件通过注解@OnBrickItemClick, @OnBrickItemLongClick处理，用法与ButterKnife相似
 
 更多用法详见demo
+
+### 初始化
+```java
+    @BrickInit
+    public class App extends Application {
+        @Override
+        public void onCreate() {
+            ....
+            BrickFactory.init(getClass());
+        }
+    }
+```
 
 ### 生成BrickRecyclerView列表
 ```java
