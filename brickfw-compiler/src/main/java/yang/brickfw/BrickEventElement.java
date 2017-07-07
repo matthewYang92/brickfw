@@ -64,7 +64,7 @@ public class BrickEventElement {
 
     //viewEventElementMap为空时无效
     public boolean isValidity() {
-        return !FP.empty(viewEventElementMap);
+        return !FP.empty(viewEventElementMap) || !FP.empty(brickEventElementMap);
     }
 
 }

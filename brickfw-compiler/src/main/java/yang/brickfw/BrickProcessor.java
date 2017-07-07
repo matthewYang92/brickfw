@@ -175,6 +175,7 @@ public class BrickProcessor extends AbstractProcessor {
                 return element;
             }
         }
+        error("can not find view element by value : " + value);
         return null;
     }
 
@@ -185,6 +186,7 @@ public class BrickProcessor extends AbstractProcessor {
                 return element;
             }
         }
+        error("can not find handler element by value : " + value);
         return null;
     }
 

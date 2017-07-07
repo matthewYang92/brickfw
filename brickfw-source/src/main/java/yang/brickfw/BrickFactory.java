@@ -22,11 +22,8 @@ public class BrickFactory {
     private static final Map<String, AbstractBrickBuilder> sBrickBuilders = new HashMap<>();
     private static final Map<String, AbstractBrickEventBinder> sBrickEventBinderMap = new HashMap<>(); // Map<handlerClassName, binder>
 
-    static {
-        init();
-    }
 
-    private static void init() {
+    public static void init() {
         try {
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
             Class<?> brickInitClass = classLoader.loadClass(BrickHolder.class.getPackage().getName() + ".BrickInitializer");
