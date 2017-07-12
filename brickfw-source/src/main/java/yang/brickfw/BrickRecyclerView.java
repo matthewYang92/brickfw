@@ -84,7 +84,7 @@ public class BrickRecyclerView extends RecyclerView {
      */
     public void addBrickListPartial(List<BrickInfo> data) {
         mCompletedBrickInfoList.addAll(data);
-        mAdapter.addDataList(data);
+        mAdapter.addDataList(mCompletedBrickInfoList);
     }
 
     /**
@@ -124,7 +124,7 @@ public class BrickRecyclerView extends RecyclerView {
             bricks.add(new BrickInfo(type, data, columns));
         }
         mCompletedBrickInfoList.addAll(bricks);
-        mAdapter.addDataList(bricks);
+        mAdapter.addDataList(mCompletedBrickInfoList);
     }
 
 
@@ -143,7 +143,7 @@ public class BrickRecyclerView extends RecyclerView {
      */
     public void addBrickPartial(BrickInfo data) {
         mCompletedBrickInfoList.add(data);
-        mAdapter.addData(data);
+        mAdapter.addData(mCompletedBrickInfoList);
     }
 
     /**
@@ -183,7 +183,7 @@ public class BrickRecyclerView extends RecyclerView {
     public void addDataPartial(String type, Object extra, int columns) {
         BrickInfo brickInfo = new BrickInfo(type, extra, columns);
         mCompletedBrickInfoList.add(brickInfo);
-        mAdapter.addData(brickInfo);
+        mAdapter.addData(mCompletedBrickInfoList);
     }
 
     /**

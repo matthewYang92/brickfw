@@ -3,7 +3,6 @@ package yang.brickfw;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -25,13 +24,15 @@ class BrickRecyclerAdapter extends RecyclerView.Adapter<AbstractBrickHolder> {
         notifyDataSetChanged();
     }
 
-    public void addData(BrickInfo data) {
-        registerItemViewType(Collections.singletonList(data));
+    public void addData(List<BrickInfo> data) {
+        registerItemViewType(data);
+        mData = data;
         notifyItemInserted(mData.size() - 1);
     }
 
     public void addDataList(List<BrickInfo> data) {
         registerItemViewType(data);
+        mData = data;
         int posStart = mData.size() - data.size() < 0 ? 0 : mData.size() - data.size();
         notifyItemRangeInserted(posStart, data.size());
     }
