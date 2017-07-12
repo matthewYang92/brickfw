@@ -84,7 +84,7 @@ public class BrickRecyclerView extends RecyclerView {
      */
     public void addBrickListPartial(List<BrickInfo> data) {
         mCompletedBrickInfoList.addAll(data);
-        mAdapter.notifyItemRangeInserted(mCompletedBrickInfoList.size(), data.size());
+        mAdapter.addDataList(data);
     }
 
     /**
@@ -119,10 +119,12 @@ public class BrickRecyclerView extends RecyclerView {
      * @param datas
      */
     public void addSingleDataListPartial(String type, List<? extends Object> datas, int columns) {
+        List<BrickInfo> bricks = new ArrayList<>();
         for (Object data : datas) {
-            mCompletedBrickInfoList.add(new BrickInfo(type, data, columns));
+            bricks.add(new BrickInfo(type, data, columns));
         }
-        mAdapter.notifyItemRangeInserted(mCompletedBrickInfoList.size(), datas.size());
+        mCompletedBrickInfoList.addAll(bricks);
+        mAdapter.addDataList(bricks);
     }
 
 
@@ -141,7 +143,7 @@ public class BrickRecyclerView extends RecyclerView {
      */
     public void addBrickPartial(BrickInfo data) {
         mCompletedBrickInfoList.add(data);
-        mAdapter.notifyItemInserted(mCompletedBrickInfoList.size());
+        mAdapter.addData(data);
     }
 
     /**
@@ -179,8 +181,9 @@ public class BrickRecyclerView extends RecyclerView {
      * @param extra
      */
     public void addDataPartial(String type, Object extra, int columns) {
-        mCompletedBrickInfoList.add(new BrickInfo(type, extra, columns));
-        mAdapter.notifyItemInserted(mCompletedBrickInfoList.size());
+        BrickInfo brickInfo = new BrickInfo(type, extra, columns);
+        mCompletedBrickInfoList.add(brickInfo);
+        mAdapter.addData(brickInfo);
     }
 
     /**
@@ -198,7 +201,7 @@ public class BrickRecyclerView extends RecyclerView {
      */
     public void removeItemPartial(int position) {
         mCompletedBrickInfoList.remove(position);
-        mAdapter.notifyItemRemoved(position);
+        mAdapter.remove(position);
     }
 
     /**
@@ -217,7 +220,7 @@ public class BrickRecyclerView extends RecyclerView {
     public void removeBrickInfoPartial(BrickInfo info) {
         int position = mCompletedBrickInfoList.indexOf(info);
         mCompletedBrickInfoList.remove(info);
-        mAdapter.notifyItemRemoved(position);
+        mAdapter.remove(position);
     }
 
     public void setOrientation(int orientation) {
