@@ -126,6 +126,16 @@ public class BrickRecyclerView extends RecyclerView {
         setCompletedData(mCompletedBrickInfoList);
     }
 
+    public void removeItem(int position) {
+        mCompletedBrickInfoList.remove(position);
+        setCompletedData(mCompletedBrickInfoList);
+    }
+
+    public void removeBrickInfo(BrickInfo info) {
+        mCompletedBrickInfoList.remove(info);
+        setCompletedData(mCompletedBrickInfoList);
+    }
+
     public void setOrientation(int orientation) {
         LayoutManager layoutManager = getLayoutManager();
         if (layoutManager instanceof LinearLayoutManager) {
