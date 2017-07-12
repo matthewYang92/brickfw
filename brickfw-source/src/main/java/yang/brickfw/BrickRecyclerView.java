@@ -79,6 +79,15 @@ public class BrickRecyclerView extends RecyclerView {
     }
 
     /**
+     * 添加Brick数据列表 局部刷新
+     * @param data
+     */
+    public void addBrickListPartial(List<BrickInfo> data) {
+        mCompletedBrickInfoList.addAll(data);
+        mAdapter.notifyItemRangeInserted(mCompletedBrickInfoList.size(), data.size());
+    }
+
+    /**
      * 添加单一类型列表
      * @param datas
      */
@@ -98,6 +107,26 @@ public class BrickRecyclerView extends RecyclerView {
     }
 
     /**
+     * 添加单一类型列表 局部刷新
+     * @param datas
+     */
+    public void addSingleDataListPartial(String type, List<? extends Object> datas) {
+        addSingleDataListPartial(type, datas, 1);
+    }
+
+    /**
+     * 添加单一类型列表 局部刷新
+     * @param datas
+     */
+    public void addSingleDataListPartial(String type, List<? extends Object> datas, int columns) {
+        for (Object data : datas) {
+            mCompletedBrickInfoList.add(new BrickInfo(type, data, columns));
+        }
+        mAdapter.notifyItemRangeInserted(mCompletedBrickInfoList.size(), datas.size());
+    }
+
+
+    /**
      * 添加Brick数据
      * @param data
      */
@@ -107,12 +136,30 @@ public class BrickRecyclerView extends RecyclerView {
     }
 
     /**
+     * 添加Brick数据 局部刷新
+     * @param data
+     */
+    public void addBrickPartial(BrickInfo data) {
+        mCompletedBrickInfoList.add(data);
+        mAdapter.notifyItemInserted(mCompletedBrickInfoList.size());
+    }
+
+    /**
      * 添加源数据
      * @param type
      * @param extra
      */
     public void addData(String type, Object extra) {
         addBrick(new BrickInfo(type, extra));
+    }
+
+    /**
+     * 添加源数据 局部刷新
+     * @param type
+     * @param extra
+     */
+    public void addDataPartial(String type, Object extra) {
+        addBrickPartial(new BrickInfo(type, extra));
     }
 
     /**
@@ -126,14 +173,51 @@ public class BrickRecyclerView extends RecyclerView {
         setCompletedData(mCompletedBrickInfoList);
     }
 
+    /**
+     * 添加源数据 局部刷新
+     * @param type
+     * @param extra
+     */
+    public void addDataPartial(String type, Object extra, int columns) {
+        mCompletedBrickInfoList.add(new BrickInfo(type, extra, columns));
+        mAdapter.notifyItemInserted(mCompletedBrickInfoList.size());
+    }
+
+    /**
+     * 删除item
+     * @param position
+     */
     public void removeItem(int position) {
         mCompletedBrickInfoList.remove(position);
         setCompletedData(mCompletedBrickInfoList);
     }
 
+    /**
+     * 删除item 局部刷新
+     * @param position
+     */
+    public void removeItemPartial(int position) {
+        mCompletedBrickInfoList.remove(position);
+        mAdapter.notifyItemRemoved(position);
+    }
+
+    /**
+     * 删除brick
+     * @param info
+     */
     public void removeBrickInfo(BrickInfo info) {
         mCompletedBrickInfoList.remove(info);
         setCompletedData(mCompletedBrickInfoList);
+    }
+
+    /**
+     * 删除brick 局部刷新
+     * @param info
+     */
+    public void removeBrickInfoPartial(BrickInfo info) {
+        int position = mCompletedBrickInfoList.indexOf(info);
+        mCompletedBrickInfoList.remove(info);
+        mAdapter.notifyItemRemoved(position);
     }
 
     public void setOrientation(int orientation) {
@@ -154,6 +238,7 @@ public class BrickRecyclerView extends RecyclerView {
     }
 
     public void clear(){
+        mBrickPositionCache.clear();
         mCompletedBrickInfoList.clear();
         setCompletedData(mCompletedBrickInfoList);
     }
@@ -247,6 +332,21 @@ public class BrickRecyclerView extends RecyclerView {
         setLayoutManager(createLayoutManager(context, 1));
         setAdapter(mAdapter);
         addItemDecoration(new BrickRecyclerItemDecoration());
+        setDefaultAnimator(false);
+    }
+
+    public void setDefaultAnimator(boolean open) {
+        if (open) {
+            this.getItemAnimator().setAddDuration(120);
+            this.getItemAnimator().setChangeDuration(250);
+            this.getItemAnimator().setMoveDuration(250);
+            this.getItemAnimator().setRemoveDuration(120);
+        } else {
+            this.getItemAnimator().setAddDuration(0);
+            this.getItemAnimator().setChangeDuration(0);
+            this.getItemAnimator().setMoveDuration(0);
+            this.getItemAnimator().setRemoveDuration(0);
+        }
     }
 
     /**
