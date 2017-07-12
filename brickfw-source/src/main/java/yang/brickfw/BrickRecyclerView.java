@@ -84,6 +84,7 @@ public class BrickRecyclerView extends RecyclerView {
      */
     public void addBrickListPartial(List<BrickInfo> data) {
         mCompletedBrickInfoList.addAll(data);
+        rebuildPositionCache(mCompletedBrickInfoList);
         mAdapter.addDataList(mCompletedBrickInfoList);
     }
 
@@ -124,6 +125,7 @@ public class BrickRecyclerView extends RecyclerView {
             bricks.add(new BrickInfo(type, data, columns));
         }
         mCompletedBrickInfoList.addAll(bricks);
+        rebuildPositionCache(mCompletedBrickInfoList);
         mAdapter.addDataList(mCompletedBrickInfoList);
     }
 
@@ -143,6 +145,7 @@ public class BrickRecyclerView extends RecyclerView {
      */
     public void addBrickPartial(BrickInfo data) {
         mCompletedBrickInfoList.add(data);
+        rebuildPositionCache(mCompletedBrickInfoList);
         mAdapter.addData(mCompletedBrickInfoList);
     }
 
@@ -183,6 +186,7 @@ public class BrickRecyclerView extends RecyclerView {
     public void addDataPartial(String type, Object extra, int columns) {
         BrickInfo brickInfo = new BrickInfo(type, extra, columns);
         mCompletedBrickInfoList.add(brickInfo);
+        rebuildPositionCache(mCompletedBrickInfoList);
         mAdapter.addData(mCompletedBrickInfoList);
     }
 
@@ -201,6 +205,7 @@ public class BrickRecyclerView extends RecyclerView {
      */
     public void removeItemPartial(int position) {
         mCompletedBrickInfoList.remove(position);
+        rebuildPositionCache(mCompletedBrickInfoList);
         mAdapter.remove(position);
     }
 
@@ -220,6 +225,7 @@ public class BrickRecyclerView extends RecyclerView {
     public void removeBrickInfoPartial(BrickInfo info) {
         int position = mCompletedBrickInfoList.indexOf(info);
         mCompletedBrickInfoList.remove(info);
+        rebuildPositionCache(mCompletedBrickInfoList);
         mAdapter.remove(position);
     }
 
@@ -261,7 +267,6 @@ public class BrickRecyclerView extends RecyclerView {
     private void setCompletedData(List<BrickInfo> data) {
         rebuildPositionCache(data);
         mAdapter.setData(data);
-        mAdapter.notifyDataSetChanged();
     }
 
     private void rebuildPositionCache(List<BrickInfo> extendedData) {
