@@ -83,9 +83,11 @@ public class BrickRecyclerView extends RecyclerView {
      * @param data
      */
     public void addBrickListPartial(List<BrickInfo> data) {
+        int pos = mCompletedBrickInfoList.size() - 1;
+        int count = data.size();
         mCompletedBrickInfoList.addAll(data);
         rebuildPositionCache(mCompletedBrickInfoList);
-        mAdapter.addDataList(mCompletedBrickInfoList);
+        mAdapter.addDataList(mCompletedBrickInfoList, pos, count);
     }
 
     /**
@@ -124,9 +126,11 @@ public class BrickRecyclerView extends RecyclerView {
         for (Object data : datas) {
             bricks.add(new BrickInfo(type, data, columns));
         }
+        int pos = mCompletedBrickInfoList.size() -  1;
+        int count = datas.size();
         mCompletedBrickInfoList.addAll(bricks);
         rebuildPositionCache(mCompletedBrickInfoList);
-        mAdapter.addDataList(mCompletedBrickInfoList);
+        mAdapter.addDataList(mCompletedBrickInfoList, pos, count);
     }
 
 

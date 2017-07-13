@@ -30,11 +30,10 @@ class BrickRecyclerAdapter extends RecyclerView.Adapter<AbstractBrickHolder> {
         notifyItemInserted(mData.size() - 1);
     }
 
-    public void addDataList(List<BrickInfo> data) {
+    public void addDataList(List<BrickInfo> data, int posStart, int count) {
         registerItemViewType(data);
         mData = data;
-        int posStart = mData.size() - data.size() < 0 ? 0 : mData.size() - data.size();
-        notifyItemRangeInserted(posStart, data.size());
+        notifyItemRangeInserted(posStart, count);
     }
 
     public void remove(int position) {
