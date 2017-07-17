@@ -6,7 +6,8 @@ package yang.brickviewdemo;
  */
 
 public interface BrickType {
-    String TEXT = "simple_text";
-    String IMAGE = "simple_image";
-    String IMAGE_TEXT = "image_text";
+    String BANNER = "banner";
+    String FEED_ITEM = "feedItem";
+    String RANK_LIST = "rankList";
+    String RANK_ITEM = "rankItem";
 }
