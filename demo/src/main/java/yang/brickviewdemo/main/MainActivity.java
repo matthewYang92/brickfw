@@ -10,6 +10,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import yang.brickfw.BrickInfo;
 import yang.brickfw.BrickRecyclerView;
+import yang.brickfw.OnBrickEvent;
 import yang.brickfw.OnBrickItemClick;
 import yang.brickviewdemo.BrickType;
 import yang.brickviewdemo.R;
@@ -59,10 +60,12 @@ public class MainActivity extends AppCompatActivity implements MainIView {
         recyclerView.addSingleDataList(BrickType.FEED_ITEM, feedInfoList, 2);
     }
 
-//    @OnBrickItemClick(BrickType.FEED_ITEM)
-//    void onClickFeedItem(BrickInfo info, View view) {
-//        recyclerView.removeBrickInfoPartial(info);
-//    }
+    @OnBrickItemClick(BrickType.FEED_ITEM)
+    void onClickFeedItem(BrickInfo info, View view) {
+        recyclerView.removeBrickInfoPartial(info);
+    }
+
+    @OnBrickEvent(value = BrickType.FEED_ITEM, eventType = 0)
 
     @Override
     protected void onDestroy() {
