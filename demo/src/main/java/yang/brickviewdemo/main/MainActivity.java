@@ -37,8 +37,8 @@ public class MainActivity extends AppCompatActivity implements MainIView {
 
     private void initView() {
         recyclerView.setNormalLayout(this, 2); //设置布局占位size
-//        recyclerView.setEventHandler(this);    //设置事件响应
-//        recyclerView.setDefaultAnimator(true); //开启局部刷新默认动画
+        recyclerView.setEventHandler(this);    //设置事件响应
+        recyclerView.setDefaultAnimator(true); //开启局部刷新默认动画
     }
 
     private void loadData() {
