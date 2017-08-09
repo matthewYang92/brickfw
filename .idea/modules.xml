@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Brick.iml" filepath="$PROJECT_DIR$/Brick.iml" />
+      <module fileurl="file://$PROJECT_DIR$/brickfw.iml" filepath="$PROJECT_DIR$/brickfw.iml" />
       <module fileurl="file://$PROJECT_DIR$/brickfw-annotation/brickfw-annotation.iml" filepath="$PROJECT_DIR$/brickfw-annotation/brickfw-annotation.iml" />
       <module fileurl="file://$PROJECT_DIR$/brickfw-compiler/brickfw-compiler.iml" filepath="$PROJECT_DIR$/brickfw-compiler/brickfw-compiler.iml" />
       <module fileurl="file://$PROJECT_DIR$/brickfw-source/brickfw-source.iml" filepath="$PROJECT_DIR$/brickfw-source/brickfw-source.iml" />
