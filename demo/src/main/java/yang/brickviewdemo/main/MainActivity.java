@@ -65,8 +65,6 @@ public class MainActivity extends AppCompatActivity implements MainIView {
         recyclerView.removeBrickInfoPartial(info);
     }
 
-    @OnBrickEvent(value = BrickType.FEED_ITEM, eventType = 0)
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
