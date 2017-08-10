@@ -36,6 +36,12 @@ class BrickRecyclerAdapter extends RecyclerView.Adapter<AbstractBrickHolder> {
         notifyItemRangeInserted(posStart, count);
     }
 
+    public void replaceDataList(List<BrickInfo> data, int posStart, int count) {
+        registerItemViewType(data);
+        mData = data;
+        notifyItemRangeChanged(posStart, count);
+    }
+
     public void remove(int position) {
         notifyItemRemoved(position);
     }

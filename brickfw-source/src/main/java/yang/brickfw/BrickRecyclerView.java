@@ -78,6 +78,11 @@ public class BrickRecyclerView extends RecyclerView {
         setCompletedData(mCompletedBrickInfoList);
     }
 
+    public void addBrickList(List<BrickInfo> data, int pos) {
+        mCompletedBrickInfoList.addAll(pos, data);
+        setCompletedData(mCompletedBrickInfoList);
+    }
+
     /**
      * 添加Brick数据列表 局部刷新
      * @param data
@@ -90,12 +95,31 @@ public class BrickRecyclerView extends RecyclerView {
         mAdapter.addDataList(mCompletedBrickInfoList, pos, count);
     }
 
+    public void addBrickListPartial(List<BrickInfo> data, int pos) {
+        int count = data.size();
+        mCompletedBrickInfoList.addAll(pos, data);
+        rebuildPositionCache(mCompletedBrickInfoList);
+        mAdapter.addDataList(mCompletedBrickInfoList, pos, count);
+    }
+
+
+
     /**
      * 添加单一类型列表
      * @param datas
      */
-    public void addSingleDataList(String type, List<? extends Object> datas) {
-        addSingleDataList(type, datas, 1);
+    public void addSingleDataListIndex(String type, List<? extends Object> datas, int pos) {
+        addSingleDataListIndex(type, datas, pos, 1);
+    }
+    /**
+     * 添加单一类型列表
+     * @param datas
+     */
+    public void addSingleDataListIndex(String type, List<? extends Object> datas, int pos, int columns) {
+        for (Object data : datas) {
+            mCompletedBrickInfoList.add(pos, new BrickInfo(type, data, columns));
+        }
+        setCompletedData(mCompletedBrickInfoList);
     }
 
     /**
@@ -107,6 +131,28 @@ public class BrickRecyclerView extends RecyclerView {
             mCompletedBrickInfoList.add(new BrickInfo(type, data, columns));
         }
         setCompletedData(mCompletedBrickInfoList);
+    }
+
+    /**
+     * 添加单一类型列表
+     * @param datas
+     */
+    public void addSingleDataListPartialIndex(String type, List<? extends Object> datas, int pos) {
+        addSingleDataListPartialIndex(type, datas, pos, 1);
+    }
+    /**
+     * 添加单一类型列表
+     * @param datas
+     */
+    public void addSingleDataListPartialIndex(String type, List<? extends Object> datas, int pos, int columns) {
+        List<BrickInfo> bricks = new ArrayList<>();
+        for (Object data : datas) {
+            bricks.add(new BrickInfo(type, data, columns));
+        }
+        int count = datas.size();
+        mCompletedBrickInfoList.addAll(pos, bricks);
+        rebuildPositionCache(mCompletedBrickInfoList);
+        mAdapter.addDataList(mCompletedBrickInfoList, pos, count);
     }
 
     /**
@@ -131,6 +177,61 @@ public class BrickRecyclerView extends RecyclerView {
         mCompletedBrickInfoList.addAll(bricks);
         rebuildPositionCache(mCompletedBrickInfoList);
         mAdapter.addDataList(mCompletedBrickInfoList, pos, count);
+    }
+
+    /**
+     * 替换列表数据
+     * @param type
+     * @param datas
+     * @param startPos
+     */
+    public void replaceDataList(String type, List<? extends Object> datas, int startPos) {
+        replaceDataList(type, datas, startPos, 1);
+    }
+
+    /**
+     * 替换列表数据
+     * @param type
+     * @param datas
+     * @param startPos
+     */
+    public void replaceDataList(String type, List<? extends Object> datas, int startPos, int columns) {
+        List<BrickInfo> bricks = new ArrayList<>();
+        for (Object data : datas) {
+            bricks.add(new BrickInfo(type, data, columns));
+        }
+        mCompletedBrickInfoList = mCompletedBrickInfoList.subList(0, startPos);
+        mCompletedBrickInfoList.addAll(bricks);
+        rebuildPositionCache(mCompletedBrickInfoList);
+        setCompletedData(mCompletedBrickInfoList);
+    }
+
+    /**
+     * 替换列表数据 局部刷新
+     * @param type
+     * @param datas
+     * @param startPos
+     */
+    public void replaceDataListPartial(String type, List<? extends Object> datas, int startPos) {
+        replaceDataListPartial(type, datas, startPos, 1);
+    }
+
+    /**
+     * 替换列表数据 局部刷新
+     * @param type
+     * @param datas
+     * @param startPos
+     */
+    public void replaceDataListPartial(String type, List<? extends Object> datas, int startPos, int columns) {
+        List<BrickInfo> bricks = new ArrayList<>();
+        for (Object data : datas) {
+            bricks.add(new BrickInfo(type, data, columns));
+        }
+        int count = datas.size();
+        mCompletedBrickInfoList = mCompletedBrickInfoList.subList(0, startPos);
+        mCompletedBrickInfoList.addAll(bricks);
+        rebuildPositionCache(mCompletedBrickInfoList);
+        mAdapter.replaceDataList(mCompletedBrickInfoList, startPos, count);
     }
 
 
