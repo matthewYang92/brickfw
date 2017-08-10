@@ -103,8 +103,6 @@ public class BrickRecyclerView extends RecyclerView {
         mAdapter.addDataList(mCompletedBrickInfoList, pos, count);
     }
 
-
-
     /**
      * 添加单一类型列表
      * @param datas
@@ -121,6 +119,14 @@ public class BrickRecyclerView extends RecyclerView {
             mCompletedBrickInfoList.add(pos, new BrickInfo(type, data, columns));
         }
         setCompletedData(mCompletedBrickInfoList);
+    }
+
+    /**
+     * 添加单一类型列表
+     * @param datas
+     */
+    public void addSingleDataList(String type, List<? extends Object> datas) {
+        addSingleDataList(type, datas, 1);
     }
 
     /**
