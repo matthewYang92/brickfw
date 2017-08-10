@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 /**
  * 装填BrickView的容器
@@ -303,6 +304,15 @@ public class BrickRecyclerView extends RecyclerView {
         mCompletedBrickInfoList.remove(position);
         setCompletedData(mCompletedBrickInfoList);
     }
+    /**
+     * 删除
+     * @param startPos
+     */
+    public void removeRange(int startPos, int count) {
+        mCompletedBrickInfoList.removeAll(new ArrayList<>(mCompletedBrickInfoList).subList(startPos, startPos + count));
+        setCompletedData(mCompletedBrickInfoList);
+    }
+
 
     /**
      * 删除item 局部刷新
@@ -312,6 +322,16 @@ public class BrickRecyclerView extends RecyclerView {
         mCompletedBrickInfoList.remove(position);
         rebuildPositionCache(mCompletedBrickInfoList);
         mAdapter.remove(position);
+    }
+
+    /**
+     * 删除
+     * @param startPos
+     */
+    public void removeRangePartial(int startPos, int count) {
+        mCompletedBrickInfoList.removeAll(mCompletedBrickInfoList.subList(startPos, startPos + count));
+        rebuildPositionCache(mCompletedBrickInfoList);
+        mAdapter.removeRange(startPos, count);
     }
 
     /**

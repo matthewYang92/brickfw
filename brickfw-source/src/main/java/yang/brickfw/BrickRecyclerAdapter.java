@@ -46,6 +46,10 @@ class BrickRecyclerAdapter extends RecyclerView.Adapter<AbstractBrickHolder> {
         notifyItemRemoved(position);
     }
 
+    public void removeRange(int startPos, int count) {
+        notifyItemRangeChanged(startPos, count);
+    }
+
     public void setEventHandler(Object eventHandler) {
         this.eventHandler = eventHandler;
     }
