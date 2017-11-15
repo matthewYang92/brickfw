@@ -9,12 +9,14 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.SparseArray;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 /**
  * 装填BrickView的容器
- *
+ * <p>
  * 使用setData自动装填
  */
 public class BrickRecyclerView extends RecyclerView {
@@ -59,6 +61,7 @@ public class BrickRecyclerView extends RecyclerView {
 
     /**
      * 设置单一类型数据列表
+     *
      * @param type
      * @param datas
      */
@@ -72,6 +75,7 @@ public class BrickRecyclerView extends RecyclerView {
 
     /**
      * 添加Brick数据列表
+     *
      * @param data
      */
     public void addBrickList(List<BrickInfo> data) {
@@ -86,6 +90,7 @@ public class BrickRecyclerView extends RecyclerView {
 
     /**
      * 添加Brick数据列表 局部刷新
+     *
      * @param data
      */
     public void addBrickListPartial(List<BrickInfo> data) {
@@ -105,13 +110,16 @@ public class BrickRecyclerView extends RecyclerView {
 
     /**
      * 添加单一类型列表
+     *
      * @param datas
      */
     public void addSingleDataListIndex(String type, List<? extends Object> datas, int pos) {
         addSingleDataListIndex(type, datas, pos, 1);
     }
+
     /**
      * 添加单一类型列表
+     *
      * @param datas
      */
     public void addSingleDataListIndex(String type, List<? extends Object> datas, int pos, int columns) {
@@ -123,6 +131,7 @@ public class BrickRecyclerView extends RecyclerView {
 
     /**
      * 添加单一类型列表
+     *
      * @param datas
      */
     public void addSingleDataList(String type, List<? extends Object> datas) {
@@ -131,6 +140,7 @@ public class BrickRecyclerView extends RecyclerView {
 
     /**
      * 添加单一类型列表
+     *
      * @param datas
      */
     public void addSingleDataList(String type, List<? extends Object> datas, int columns) {
@@ -142,13 +152,16 @@ public class BrickRecyclerView extends RecyclerView {
 
     /**
      * 添加单一类型列表
+     *
      * @param datas
      */
     public void addSingleDataListPartialIndex(String type, List<? extends Object> datas, int pos) {
         addSingleDataListPartialIndex(type, datas, pos, 1);
     }
+
     /**
      * 添加单一类型列表
+     *
      * @param datas
      */
     public void addSingleDataListPartialIndex(String type, List<? extends Object> datas, int pos, int columns) {
@@ -164,6 +177,7 @@ public class BrickRecyclerView extends RecyclerView {
 
     /**
      * 添加单一类型列表 局部刷新
+     *
      * @param datas
      */
     public void addSingleDataListPartial(String type, List<? extends Object> datas) {
@@ -172,6 +186,7 @@ public class BrickRecyclerView extends RecyclerView {
 
     /**
      * 添加单一类型列表 局部刷新
+     *
      * @param datas
      */
     public void addSingleDataListPartial(String type, List<? extends Object> datas, int columns) {
@@ -179,7 +194,7 @@ public class BrickRecyclerView extends RecyclerView {
         for (Object data : datas) {
             bricks.add(new BrickInfo(type, data, columns));
         }
-        int pos = mCompletedBrickInfoList.size() -  1;
+        int pos = mCompletedBrickInfoList.size() - 1;
         int count = datas.size();
         mCompletedBrickInfoList.addAll(bricks);
         rebuildPositionCache(mCompletedBrickInfoList);
@@ -188,6 +203,7 @@ public class BrickRecyclerView extends RecyclerView {
 
     /**
      * 替换列表数据
+     *
      * @param type
      * @param datas
      * @param startPos
@@ -198,6 +214,7 @@ public class BrickRecyclerView extends RecyclerView {
 
     /**
      * 替换列表数据
+     *
      * @param type
      * @param datas
      * @param startPos
@@ -215,6 +232,7 @@ public class BrickRecyclerView extends RecyclerView {
 
     /**
      * 替换列表数据 局部刷新
+     *
      * @param type
      * @param datas
      * @param startPos
@@ -225,6 +243,7 @@ public class BrickRecyclerView extends RecyclerView {
 
     /**
      * 替换列表数据 局部刷新
+     *
      * @param type
      * @param datas
      * @param startPos
@@ -244,6 +263,7 @@ public class BrickRecyclerView extends RecyclerView {
 
     /**
      * 添加Brick数据
+     *
      * @param data
      */
     public void addBrick(BrickInfo data) {
@@ -252,7 +272,18 @@ public class BrickRecyclerView extends RecyclerView {
     }
 
     /**
+     * 添加Brick数据
+     *
+     * @param data
+     */
+    public void addBrick(int position, BrickInfo data) {
+        mCompletedBrickInfoList.add(position, data);
+        setCompletedData(mCompletedBrickInfoList);
+    }
+
+    /**
      * 添加Brick数据 局部刷新
+     *
      * @param data
      */
     public void addBrickPartial(BrickInfo data) {
@@ -262,7 +293,19 @@ public class BrickRecyclerView extends RecyclerView {
     }
 
     /**
+     * 添加Brick数据 局部刷新
+     *
+     * @param data
+     */
+    public void addBrickPartial(int position, BrickInfo data) {
+        mCompletedBrickInfoList.add(position, data);
+        rebuildPositionCache(mCompletedBrickInfoList);
+        mAdapter.addData(mCompletedBrickInfoList);
+    }
+
+    /**
      * 添加源数据
+     *
      * @param type
      * @param extra
      */
@@ -271,7 +314,18 @@ public class BrickRecyclerView extends RecyclerView {
     }
 
     /**
+     * 添加源数据
+     *
+     * @param type
+     * @param extra
+     */
+    public void addData(int position, String type, Object extra) {
+        addBrick(position, new BrickInfo(type, extra));
+    }
+
+    /**
      * 添加源数据 局部刷新
+     *
      * @param type
      * @param extra
      */
@@ -280,7 +334,18 @@ public class BrickRecyclerView extends RecyclerView {
     }
 
     /**
+     * 添加源数据 局部刷新
+     *
+     * @param type
+     * @param extra
+     */
+    public void addDataPartial(int position, String type, Object extra) {
+        addBrickPartial(position, new BrickInfo(type, extra));
+    }
+
+    /**
      * 添加源数据
+     *
      * @param type
      * @param extra
      * @param columns 列数
@@ -291,7 +356,20 @@ public class BrickRecyclerView extends RecyclerView {
     }
 
     /**
+     * 添加源数据
+     *
+     * @param type
+     * @param extra
+     * @param columns 列数
+     */
+    public void addData(int position, String type, Object extra, int columns) {
+        mCompletedBrickInfoList.add(position, new BrickInfo(type, extra, columns));
+        setCompletedData(mCompletedBrickInfoList);
+    }
+
+    /**
      * 添加源数据 局部刷新
+     *
      * @param type
      * @param extra
      */
@@ -303,15 +381,31 @@ public class BrickRecyclerView extends RecyclerView {
     }
 
     /**
+     * 添加源数据 局部刷新
+     *
+     * @param type
+     * @param extra
+     */
+    public void addDataPartial(int position, String type, Object extra, int columns) {
+        BrickInfo brickInfo = new BrickInfo(type, extra, columns);
+        mCompletedBrickInfoList.add(position, brickInfo);
+        rebuildPositionCache(mCompletedBrickInfoList);
+        mAdapter.addData(mCompletedBrickInfoList);
+    }
+
+    /**
      * 删除item
+     *
      * @param position
      */
     public void removeItem(int position) {
         mCompletedBrickInfoList.remove(position);
         setCompletedData(mCompletedBrickInfoList);
     }
+
     /**
      * 删除
+     *
      * @param startPos
      */
     public void removeRange(int startPos, int count) {
@@ -322,6 +416,7 @@ public class BrickRecyclerView extends RecyclerView {
 
     /**
      * 删除item 局部刷新
+     *
      * @param position
      */
     public void removeItemPartial(int position) {
@@ -332,6 +427,7 @@ public class BrickRecyclerView extends RecyclerView {
 
     /**
      * 删除
+     *
      * @param startPos
      */
     public void removeRangePartial(int startPos, int count) {
@@ -342,6 +438,7 @@ public class BrickRecyclerView extends RecyclerView {
 
     /**
      * 删除brick
+     *
      * @param info
      */
     public void removeBrickInfo(BrickInfo info) {
@@ -351,6 +448,7 @@ public class BrickRecyclerView extends RecyclerView {
 
     /**
      * 删除brick 局部刷新
+     *
      * @param info
      */
     public void removeBrickInfoPartial(BrickInfo info) {
@@ -371,13 +469,18 @@ public class BrickRecyclerView extends RecyclerView {
 
     /**
      * 获取RecycleView item 行数
+     *
      * @return 行数
      */
-    public int getCount(){
-       return mAdapter.getItemCount();
+    public int getCount() {
+        return mAdapter.getItemCount();
     }
 
-    public void clear(){
+    public List<BrickInfo> getCompletedBrickInfoList() {
+        return mCompletedBrickInfoList;
+    }
+
+    public void clear() {
         mBrickPositionCache.clear();
         mCompletedBrickInfoList.clear();
         setCompletedData(mCompletedBrickInfoList);
@@ -441,7 +544,7 @@ public class BrickRecyclerView extends RecyclerView {
         smoothScrollToPosition(0);
     }
 
-    public void scrollToTopWithNoAnim(){
+    public void scrollToTopWithNoAnim() {
         scrollToPosition(0);
     }
 
@@ -490,6 +593,7 @@ public class BrickRecyclerView extends RecyclerView {
 
     /**
      * 设置瀑布流布局
+     *
      * @param columns
      * @param orientation
      */
@@ -511,6 +615,7 @@ public class BrickRecyclerView extends RecyclerView {
 
     /**
      * 设置普通布局
+     *
      * @param context
      * @param spanSize 占位大小 把一行分为spanSize个位置
      */
