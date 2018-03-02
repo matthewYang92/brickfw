@@ -62,10 +62,11 @@ class BrickRecyclerAdapter extends RecyclerView.Adapter<AbstractBrickHolder> {
     @Override
     public void onBindViewHolder(AbstractBrickHolder holder, int position) {
         if (holder != null) {
-            holder.setBrickInfo(getItemData(position));
+            BrickInfo info = getItemData(position);
             if (null != eventHandler) {
-                BrickFactory.bindEvent(eventHandler, holder.itemView, getItemData(position));
+                BrickFactory.bindEvent(eventHandler, holder.itemView, info);
             }
+            holder.setBrickInfo(info);
         }
     }
 
