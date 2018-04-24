@@ -43,6 +43,23 @@ public class BrickFactory {
         }
     }
 
+    public static void init() {
+        try {
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            Class<?> brickInitClass = classLoader.loadClass("yang.brickfw.BrickInitializer");
+            brickInitClass.getMethod("initBrickBuilderMap", Map.class).invoke(null, sBrickBuilders);
+            brickInitClass.getMethod("initBrickBinderMap", Map.class).invoke(null, sBrickEventBinderMap);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
+
     static void bindEvent(Object handler, View itemView, BrickInfo info) {
         String className = handler.getClass().getName();
         AbstractBrickEventBinder eventHandler = sBrickEventBinderMap.get(className);

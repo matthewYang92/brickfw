@@ -10,8 +10,8 @@ Add this in your app build.gradle:
 ```java
 dependencies {
     ...
-    compile 'io.yang:brickfw-source:2.4.5'
-    annotationProcessor 'io.yang:brickfw-compiler:2.4.5'
+    compile 'io.yang:brickfw-source:2.4.7'
+    annotationProcessor 'io.yang:brickfw-compiler:2.4.7'
 }
 ```
 
