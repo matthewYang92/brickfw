@@ -11,7 +11,6 @@ import android.util.AttributeSet;
 import android.util.SparseArray;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**

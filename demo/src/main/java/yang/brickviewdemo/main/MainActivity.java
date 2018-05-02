@@ -3,15 +3,13 @@ package yang.brickviewdemo.main;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import yang.brickfw.BrickInfo;
 import yang.brickfw.BrickRecyclerView;
-import yang.brickfw.OnBrickEvent;
 import yang.brickfw.OnBrickItemClick;
 import yang.brickviewdemo.BrickType;
 import yang.brickviewdemo.R;
@@ -20,6 +18,8 @@ import yang.brickviewdemo.main.entity.FeedInfo;
 import yang.brickviewdemo.main.entity.UserInfo;
 
 public class MainActivity extends AppCompatActivity implements MainIView {
+
+    public static final String TAG = "MainActivity";
 
     @BindView(R.id.recycler)
     BrickRecyclerView recyclerView;
@@ -64,6 +64,11 @@ public class MainActivity extends AppCompatActivity implements MainIView {
     @OnBrickItemClick(BrickType.FEED_ITEM)
     void onClickFeedItem(BrickInfo info, View view) {
         recyclerView.removeBrickInfoPartial(info);
+    }
+
+    @OnBrickItemClick(BrickType.BANNER)
+    void onClickBanner(BrickInfo info, View view) {
+        Toast.makeText(this, "BannerItem onClick.", Toast.LENGTH_LONG).show();
     }
 
     @Override
