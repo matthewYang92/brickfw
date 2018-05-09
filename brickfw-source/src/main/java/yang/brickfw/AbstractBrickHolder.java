@@ -21,4 +21,6 @@ public abstract class AbstractBrickHolder extends RecyclerView.ViewHolder {
      */
     public abstract void setBrickInfo(BrickInfo info);
 
+    public abstract void onViewRecycled();
+
 }

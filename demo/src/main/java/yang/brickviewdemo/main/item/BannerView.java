@@ -5,12 +5,14 @@ import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import com.bumptech.glide.Glide;
 
 import yang.brickfw.BrickView;
 import yang.brickfw.DecorationInfo;
 import yang.brickfw.IDecoration;
+import yang.brickfw.OnRecycled;
 import yang.brickfw.SetBrickData;
 import yang.brickviewdemo.BrickType;
 import yang.brickviewdemo.main.entity.BannerInfo;
@@ -46,5 +48,11 @@ public class BannerView extends AppCompatImageView implements IDecoration {
         decorationInfo.setDividerBottom(Color.WHITE, 10);
         decorationInfo.setDividerLeft(Color.WHITE, 3);
         decorationInfo.setDividerRight(Color.WHITE, 3);
+    }
+
+
+    @OnRecycled(BrickType.BANNER)
+    void onRecycled() {
+        Log.v("Banner", "onRecycled");
     }
 }

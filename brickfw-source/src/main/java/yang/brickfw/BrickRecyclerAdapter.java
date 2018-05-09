@@ -55,6 +55,12 @@ class BrickRecyclerAdapter extends RecyclerView.Adapter<AbstractBrickHolder> {
     }
 
     @Override
+    public void onViewRecycled(AbstractBrickHolder holder) {
+        super.onViewRecycled(holder);
+        holder.onViewRecycled();
+    }
+
+    @Override
     public AbstractBrickHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         return BrickFactory.createBrick(parent, getItemViewStringType(viewType));
     }

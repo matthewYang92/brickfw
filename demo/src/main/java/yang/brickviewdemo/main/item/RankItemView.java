@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import yang.brickfw.BrickView;
+import yang.brickfw.OnRecycled;
 import yang.brickfw.SetBrickData;
 import yang.brickviewdemo.BrickType;
 import yang.brickviewdemo.R;
@@ -48,5 +49,10 @@ public class RankItemView extends LinearLayout {
     void setData(UserInfo userInfo) {
         Glide.with(getContext()).load(userInfo.getHeadUrl()).asBitmap().centerCrop().into(head);
         nick.setText(userInfo.getNick());
+    }
+
+    @OnRecycled(BrickType.RANK_ITEM)
+    void onRecycled() {
+
     }
 }

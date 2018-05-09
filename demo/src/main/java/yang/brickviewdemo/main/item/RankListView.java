@@ -13,6 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import yang.brickfw.BrickRecyclerView;
 import yang.brickfw.BrickView;
+import yang.brickfw.OnRecycled;
 import yang.brickfw.SetBrickData;
 import yang.brickviewdemo.BrickType;
 import yang.brickviewdemo.R;
@@ -47,5 +48,10 @@ public class RankListView extends LinearLayout {
     @SetBrickData(BrickType.RANK_LIST)
     void setData(List<UserInfo> userInfoList) {
         recyclerView.setSingleTypeData(BrickType.RANK_ITEM, userInfoList);
+    }
+
+    @OnRecycled(BrickType.RANK_LIST)
+    void onRecycled() {
+
     }
 }

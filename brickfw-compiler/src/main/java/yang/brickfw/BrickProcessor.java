@@ -3,6 +3,7 @@ package yang.brickfw;
 import com.google.auto.service.AutoService;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeName;
+
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
@@ -12,6 +13,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
+
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Filer;
 import javax.annotation.processing.Messager;
@@ -25,6 +27,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
+
 import yang.brickfw.file.BuilderFileBuilder;
 import yang.brickfw.file.EventBinderFileBuilder;
 import yang.brickfw.file.HolderFileBuilder;
@@ -62,6 +65,7 @@ public class BrickProcessor extends AbstractProcessor {
         Set<? extends Element> holderElementSet = new HashSet<>();
         Set<? extends Element> viewElementSet = new HashSet<>();
         Set<? extends Element> dataMethodElementSet = new HashSet<>();
+        Set<? extends Element> recycledMethodElementSet = new HashSet<>();
         Set<? extends Element> itemClickElementSet = new HashSet<>();
         Set<? extends Element> itemLongClickElementSet = new HashSet<>();
         Set<? extends Element> brickEventElementSet = new HashSet<>();
@@ -81,6 +85,9 @@ public class BrickProcessor extends AbstractProcessor {
             } else if (TypeName.get(typeElement.asType()).equals(TypeName.get(SetBrickData.class))) {
                 dataMethodElementSet = roundEnv.getElementsAnnotatedWith(typeElement);
                 note("annotations dataElementSet : %s", dataMethodElementSet);
+            } else if (TypeName.get(typeElement.asType()).equals(TypeName.get(OnRecycled.class))) {
+                recycledMethodElementSet = roundEnv.getElementsAnnotatedWith(typeElement);
+                note("annotations recycledMethodElementSet : %s", recycledMethodElementSet);
             } else if (TypeName.get(typeElement.asType()).equals(TypeName.get(OnBrickItemClick.class))) {
                 itemClickElementSet = roundEnv.getElementsAnnotatedWith(typeElement);
                 note("annotations itemClickElementSet : %s", itemClickElementSet);
@@ -98,7 +105,7 @@ public class BrickProcessor extends AbstractProcessor {
 
         updateEventElementMap(viewElementSet, itemClickElementSet, itemLongClickElementSet, brickEventHandlerElementSet, brickEventElementSet);
 
-        updateBrickElementMap(holderElementSet, viewElementSet, dataMethodElementSet);
+        updateBrickElementMap(holderElementSet, viewElementSet, dataMethodElementSet, recycledMethodElementSet);
 
         genHolderAndBuilderFiles();
 
@@ -214,8 +221,9 @@ public class BrickProcessor extends AbstractProcessor {
     }
 
     private void updateBrickElementMap(Set<? extends Element> holderElementSet,
-            Set<? extends Element> viewElementSet,
-            Set<? extends Element> dataMethodElementSet) {
+                                       Set<? extends Element> viewElementSet,
+                                       Set<? extends Element> dataMethodElementSet,
+                                       Set<? extends Element> recycledMethodElementSet) {
         for (Element viewElement : viewElementSet) {
             String viewValue = viewElement.getAnnotation(BrickView.class).value();
             BrickElement brickElement = brickElementMap.get(viewValue);
@@ -246,6 +254,15 @@ public class BrickProcessor extends AbstractProcessor {
                 brickElementMap.put(dataMethodValue, brickElement);
             }
             brickElement.setDataMethodElement((ExecutableElement) dataMethodElement);
+        }
+        for (Element recycledMethodElement : recycledMethodElementSet) {
+            String value = recycledMethodElement.getAnnotation(OnRecycled.class).value();
+            BrickElement brickElement = brickElementMap.get(value);
+            if (brickElement == null) {
+                brickElement = new BrickElement();
+                brickElementMap.put(value, brickElement);
+            }
+            brickElement.setRecycledElement((ExecutableElement) recycledMethodElement);
         }
         //去除无效的brickElement
         Iterator<String> it = brickElementMap.keySet().iterator();
@@ -321,6 +338,7 @@ public class BrickProcessor extends AbstractProcessor {
         types.add(OnBrickItemLongClick.class.getCanonicalName());
         types.add(OnBrickEvent.class.getCanonicalName());
         types.add(BrickEventHandler.class.getCanonicalName());
+        types.add(OnRecycled.class.getCanonicalName());
         return types;
     }
 

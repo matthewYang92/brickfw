@@ -17,6 +17,7 @@ public class BrickElement {
     private Element holderElement;
     private Element viewElement;
     private ExecutableElement dataMethodElement;
+    private ExecutableElement recycledMethodElement;
 
     public String getPackageName() {
         return packageName;
@@ -48,6 +49,14 @@ public class BrickElement {
 
     public void setDataMethodElement(ExecutableElement dataMethodElement) {
         this.dataMethodElement = dataMethodElement;
+    }
+
+    public void setRecycledElement(ExecutableElement methodElement) {
+        this.recycledMethodElement = methodElement;
+    }
+
+    public ExecutableElement getRecycledMethodElement() {
+        return recycledMethodElement;
     }
 
     //view不为空的情况下 holder或dataMethod不为空
@@ -92,5 +101,13 @@ public class BrickElement {
 
     public VariableElement getDataMethodParameter(int index) throws IndexOutOfBoundsException{
         return getDataMethodElement().getParameters().get(index);
+    }
+
+    public Name getRecycledMethodSimpleName() {
+        return getRecycledMethodElement().getSimpleName();
+    }
+
+    public VariableElement getRecycledMethodParameter(int index) throws IndexOutOfBoundsException{
+        return getRecycledMethodElement().getParameters().get(index);
     }
 }

@@ -79,6 +79,18 @@ public class HolderFileBuilder {
     }
 
     /**
+     * 构造onViewRecycler方法
+     * @return
+     */
+    private MethodSpec onViewRecycledMethod() {
+        MethodSpec.Builder setBrickBuilder = MethodSpec.methodBuilder("onViewRecycled")
+                .addAnnotation(Override.class)
+                .addModifiers(Modifier.PUBLIC)
+                .addStatement("$L.$N()", brickElement.getViewParamName(), brickElement.getRecycledMethodSimpleName());
+        return setBrickBuilder.build();
+    }
+
+    /**
      * 生成BrickBuilder类
      * @return
      */
@@ -90,6 +102,7 @@ public class HolderFileBuilder {
                 .addField(viewField())
                 .addMethod(constructorMethod())
                 .addMethod(setBrickInfoMethod())
+                .addMethod(onViewRecycledMethod())
                 .superclass(ClassName.get(packageName, "AbstractBrickHolder"))
                 .build();
     }

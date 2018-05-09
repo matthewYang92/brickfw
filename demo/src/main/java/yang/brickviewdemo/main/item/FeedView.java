@@ -4,12 +4,14 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import com.bumptech.glide.Glide;
 
 import yang.brickfw.BrickView;
 import yang.brickfw.DecorationInfo;
 import yang.brickfw.IDecoration;
+import yang.brickfw.OnRecycled;
 import yang.brickfw.SetBrickData;
 import yang.brickviewdemo.BrickType;
 import yang.brickviewdemo.main.entity.FeedInfo;
@@ -35,12 +37,21 @@ public class FeedView extends AppCompatImageView implements IDecoration {
         Glide.with(getContext()).load(feedInfo.getCoverUrl()).asBitmap().centerCrop().into(this);
     }
 
+    @OnRecycled(BrickType.FEED_ITEM)
+    void onRecycled() {
+        Log.v("Feed", "onRecycled");
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         setMeasuredDimension(widthMeasureSpec, widthMeasureSpec);
     }
 
+    /**
+     * 分割线设置
+     * @param decorationInfo
+     */
     @Override
     public void updateDecoration(DecorationInfo decorationInfo) {
         decorationInfo.setDividerLeft(Color.WHITE, 3);
