@@ -13,7 +13,7 @@ dependencies {
 //    userOrg = 'matthew92'      //bintray注册的用户名
 //    groupId = 'io.yang'         //compile引用时的第1部分groupId
 //    artifactId = 'brickfw-annotation'     //compile引用时的第2部分项目名
-//    publishVersion = '2.5.0'    //compile引用时的第3部分版本号
+//    publishVersion = '2.5.2'    //compile引用时的第3部分版本号
 //    desc = 'use annotationprocessor to create the proxy brick class'
 //    website = 'https://github.com/matthewYang92/brickfw'
 //}

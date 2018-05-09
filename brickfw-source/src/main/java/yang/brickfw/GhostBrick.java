@@ -17,6 +17,11 @@ public class GhostBrick extends AbstractBrickHolder {
     }
 
     @Override
+    public void setBrickInfoPayload(BrickInfo info, Object payload) {
+
+    }
+
+    @Override
     public void onViewRecycled() {
 
     }

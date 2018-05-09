@@ -99,5 +99,6 @@ public class MainActivity extends AppCompatActivity {
     @OnBrickItemClick(BrickType.BANNER)
     void onClickBanner(BrickInfo info, View view) {  //BannerView点击事件的回调
         Toast.makeText(this, "BannerItem onClick.", Toast.LENGTH_LONG).show();
+        recyclerView.updateItem(1, 1);
     }
 }

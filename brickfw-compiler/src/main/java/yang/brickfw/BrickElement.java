@@ -17,6 +17,7 @@ public class BrickElement {
     private Element holderElement;
     private Element viewElement;
     private ExecutableElement dataMethodElement;
+    private ExecutableElement dataPayloadMethodElement;
     private ExecutableElement recycledMethodElement;
 
     public String getPackageName() {
@@ -55,13 +56,21 @@ public class BrickElement {
         this.recycledMethodElement = methodElement;
     }
 
+    public void setDataPayloadMethodElement(ExecutableElement dataPayloadMethodElement) {
+        this.dataPayloadMethodElement = dataPayloadMethodElement;
+    }
+
+    public ExecutableElement getDataPayloadMethodElement() {
+        return dataPayloadMethodElement;
+    }
+
     public ExecutableElement getRecycledMethodElement() {
         return recycledMethodElement;
     }
 
     //view不为空的情况下 holder或dataMethod不为空
     public boolean isValidity() {
-        return null != viewElement && (null != holderElement || null != dataMethodElement);
+        return null != viewElement;
     }
 
     public int getGenFileType() {
@@ -101,6 +110,14 @@ public class BrickElement {
 
     public VariableElement getDataMethodParameter(int index) throws IndexOutOfBoundsException{
         return getDataMethodElement().getParameters().get(index);
+    }
+
+    public Name getDataPayloadMethodSimpleName() {
+        return getDataPayloadMethodElement().getSimpleName();
+    }
+
+    public VariableElement getDataPayloadMethodParameter(int index) throws IndexOutOfBoundsException{
+        return getDataPayloadMethodElement().getParameters().get(index);
     }
 
     public Name getRecycledMethodSimpleName() {

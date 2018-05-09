@@ -14,6 +14,7 @@ import yang.brickfw.DecorationInfo;
 import yang.brickfw.IDecoration;
 import yang.brickfw.OnRecycled;
 import yang.brickfw.SetBrickData;
+import yang.brickfw.SetBrickDataByPayload;
 import yang.brickviewdemo.BrickType;
 import yang.brickviewdemo.main.entity.BannerInfo;
 
@@ -34,7 +35,13 @@ public class BannerView extends AppCompatImageView implements IDecoration {
 
     @SetBrickData(BrickType.BANNER)
     void setData(BannerInfo bannerInfo) {
+        Log.v("Banner", "setData:" + bannerInfo);
         Glide.with(getContext()).load(bannerInfo.getCoverUrl()).asBitmap().centerCrop().into(this);
+    }
+
+    @SetBrickDataByPayload(BrickType.BANNER)
+    void setPayloadData(BannerInfo bannerInfo, Object payload) {
+        Log.v("Banner", "setPayloadData:" + bannerInfo + " payload:" + payload);
     }
 
     @Override
@@ -51,8 +58,8 @@ public class BannerView extends AppCompatImageView implements IDecoration {
     }
 
 
-    @OnRecycled(BrickType.BANNER)
-    void onRecycled() {
-        Log.v("Banner", "onRecycled");
-    }
+//    @OnRecycled(BrickType.BANNER)
+//    void onRecycled() {
+//        Log.v("Banner", "onRecycled");
+//    }
 }

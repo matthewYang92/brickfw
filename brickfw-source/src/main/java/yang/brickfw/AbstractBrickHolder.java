@@ -21,6 +21,14 @@ public abstract class AbstractBrickHolder extends RecyclerView.ViewHolder {
      */
     public abstract void setBrickInfo(BrickInfo info);
 
+
+    /**
+     * 绑定组件内容
+     *
+     * @param info
+     */
+    public abstract void setBrickInfoPayload(BrickInfo info, Object payload);
+
     public abstract void onViewRecycled();
 
 }

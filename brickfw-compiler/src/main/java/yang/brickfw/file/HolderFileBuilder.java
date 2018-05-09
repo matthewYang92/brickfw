@@ -63,19 +63,54 @@ public class HolderFileBuilder {
         return constructorBuilder.build();
     }
 
+    private boolean hasSetDataMethod() {
+        return brickElement.getDataMethodElement() != null;
+    }
+
     /**
      * 构造setBrickData方法
      * @return
      */
     private MethodSpec setBrickInfoMethod() {
-        TypeName extraType = ClassName.get(brickElement.getDataMethodParameter(0).asType());
         MethodSpec.Builder setBrickBuilder = MethodSpec.methodBuilder("setBrickInfo")
                 .addAnnotation(Override.class)
                 .addModifiers(Modifier.PUBLIC)
-                .addParameter(ClassName.get(packageName, "BrickInfo"), "info")
-                .addStatement("$T data = ($T) info.getExtra()", extraType, extraType)
-                .addStatement("$L.$N(data)", brickElement.getViewParamName(), brickElement.getDataMethodSimpleName());
+                .addParameter(ClassName.get(packageName, "BrickInfo"), "info");
+        if (hasSetDataMethod()) {
+            TypeName extraType = ClassName.get(brickElement.getDataMethodParameter(0).asType());
+            setBrickBuilder
+                    .addStatement("$T data = ($T) info.getExtra()", extraType, extraType)
+                    .addStatement("$L.$N(data)", brickElement.getViewParamName(), brickElement.getDataMethodSimpleName());
+        }
         return setBrickBuilder.build();
+    }
+
+    private boolean hasSetDataPayloadMethod() {
+        return brickElement.getDataPayloadMethodElement() != null;
+    }
+
+
+    /**
+     * 构造setBrickData方法
+     * @return
+     */
+    private MethodSpec setBrickInfoPayloadMethod() {
+        MethodSpec.Builder setBrickBuilder = MethodSpec.methodBuilder("setBrickInfoPayload")
+                .addAnnotation(Override.class)
+                .addModifiers(Modifier.PUBLIC)
+                .addParameter(ClassName.get(packageName, "BrickInfo"), "info")
+                .addParameter(ClassName.get(Object.class), "payload");
+        if (hasSetDataPayloadMethod()) {
+            TypeName extraType = ClassName.get(brickElement.getDataPayloadMethodParameter(0).asType());
+            setBrickBuilder
+                    .addStatement("$T data = ($T) info.getExtra()", extraType, extraType)
+                    .addStatement("$L.$N(data, payload)", brickElement.getViewParamName(), brickElement.getDataPayloadMethodSimpleName());
+        }
+        return setBrickBuilder.build();
+    }
+
+    private boolean hasRecycledMethod() {
+        return brickElement.getRecycledMethodElement() != null;
     }
 
     /**
@@ -85,8 +120,10 @@ public class HolderFileBuilder {
     private MethodSpec onViewRecycledMethod() {
         MethodSpec.Builder setBrickBuilder = MethodSpec.methodBuilder("onViewRecycled")
                 .addAnnotation(Override.class)
-                .addModifiers(Modifier.PUBLIC)
-                .addStatement("$L.$N()", brickElement.getViewParamName(), brickElement.getRecycledMethodSimpleName());
+                .addModifiers(Modifier.PUBLIC);
+        if (hasRecycledMethod()) {
+            setBrickBuilder.addStatement("$L.$N()", brickElement.getViewParamName(), brickElement.getRecycledMethodSimpleName());
+        }
         return setBrickBuilder.build();
     }
 
@@ -102,6 +139,7 @@ public class HolderFileBuilder {
                 .addField(viewField())
                 .addMethod(constructorMethod())
                 .addMethod(setBrickInfoMethod())
+                .addMethod(setBrickInfoPayloadMethod())
                 .addMethod(onViewRecycledMethod())
                 .superclass(ClassName.get(packageName, "AbstractBrickHolder"))
                 .build();

@@ -11,7 +11,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
-        versionName "2.5.1"
+        versionName "2.5.3"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -31,7 +31,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile "com.android.support:recyclerview-v7:${supportLibVersion}"
 //    compile project(':brickfw-annotation')
-    compile 'io.yang:brickfw-annotation:2.5.0'
+    compile 'io.yang:brickfw-annotation:2.5.2'
 }
 
 allprojects {
@@ -50,7 +50,7 @@ allprojects {
 def siteUrl = 'https://github.com/matthewYang92/brickfw' // 项目的主页
 def gitUrl = 'https://github.com/matthewYang92/brickfw.git' // Git仓库的url
 group = "io.yang" // Maven Group ID for the artifact，一般填你唯一的包名
-version = "2.5.1"
+version = "2.5.3"
 
 install {
     repositories.mavenInstaller {

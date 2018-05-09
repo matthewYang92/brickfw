@@ -65,6 +65,7 @@ public class BrickProcessor extends AbstractProcessor {
         Set<? extends Element> holderElementSet = new HashSet<>();
         Set<? extends Element> viewElementSet = new HashSet<>();
         Set<? extends Element> dataMethodElementSet = new HashSet<>();
+        Set<? extends Element> dataPayloadMethodElementSet = new HashSet<>();
         Set<? extends Element> recycledMethodElementSet = new HashSet<>();
         Set<? extends Element> itemClickElementSet = new HashSet<>();
         Set<? extends Element> itemLongClickElementSet = new HashSet<>();
@@ -85,6 +86,9 @@ public class BrickProcessor extends AbstractProcessor {
             } else if (TypeName.get(typeElement.asType()).equals(TypeName.get(SetBrickData.class))) {
                 dataMethodElementSet = roundEnv.getElementsAnnotatedWith(typeElement);
                 note("annotations dataElementSet : %s", dataMethodElementSet);
+            } else if (TypeName.get(typeElement.asType()).equals(TypeName.get(SetBrickDataByPayload.class))) {
+                dataPayloadMethodElementSet = roundEnv.getElementsAnnotatedWith(typeElement);
+                note("annotations dataPayloadMethodElementSet : %s", dataPayloadMethodElementSet);
             } else if (TypeName.get(typeElement.asType()).equals(TypeName.get(OnRecycled.class))) {
                 recycledMethodElementSet = roundEnv.getElementsAnnotatedWith(typeElement);
                 note("annotations recycledMethodElementSet : %s", recycledMethodElementSet);
@@ -105,7 +109,7 @@ public class BrickProcessor extends AbstractProcessor {
 
         updateEventElementMap(viewElementSet, itemClickElementSet, itemLongClickElementSet, brickEventHandlerElementSet, brickEventElementSet);
 
-        updateBrickElementMap(holderElementSet, viewElementSet, dataMethodElementSet, recycledMethodElementSet);
+        updateBrickElementMap(holderElementSet, viewElementSet, dataMethodElementSet, dataPayloadMethodElementSet, recycledMethodElementSet);
 
         genHolderAndBuilderFiles();
 
@@ -223,6 +227,7 @@ public class BrickProcessor extends AbstractProcessor {
     private void updateBrickElementMap(Set<? extends Element> holderElementSet,
                                        Set<? extends Element> viewElementSet,
                                        Set<? extends Element> dataMethodElementSet,
+                                       Set<? extends Element> dataPayloadMethodElementSet,
                                        Set<? extends Element> recycledMethodElementSet) {
         for (Element viewElement : viewElementSet) {
             String viewValue = viewElement.getAnnotation(BrickView.class).value();
@@ -254,6 +259,15 @@ public class BrickProcessor extends AbstractProcessor {
                 brickElementMap.put(dataMethodValue, brickElement);
             }
             brickElement.setDataMethodElement((ExecutableElement) dataMethodElement);
+        }
+        for (Element dataPayloadMethodElement : dataPayloadMethodElementSet) {
+            String dataMethodValue = dataPayloadMethodElement.getAnnotation(SetBrickDataByPayload.class).value();
+            BrickElement brickElement = brickElementMap.get(dataMethodValue);
+            if (brickElement == null) {
+                brickElement = new BrickElement();
+                brickElementMap.put(dataMethodValue, brickElement);
+            }
+            brickElement.setDataPayloadMethodElement((ExecutableElement) dataPayloadMethodElement);
         }
         for (Element recycledMethodElement : recycledMethodElementSet) {
             String value = recycledMethodElement.getAnnotation(OnRecycled.class).value();
@@ -339,6 +353,7 @@ public class BrickProcessor extends AbstractProcessor {
         types.add(OnBrickEvent.class.getCanonicalName());
         types.add(BrickEventHandler.class.getCanonicalName());
         types.add(OnRecycled.class.getCanonicalName());
+        types.add(SetBrickDataByPayload.class.getCanonicalName());
         return types;
     }
 

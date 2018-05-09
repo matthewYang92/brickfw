@@ -497,6 +497,15 @@ public class BrickRecyclerView extends RecyclerView {
         mAdapter.notifyItemChanged(pos);
     }
 
+
+    public void updateRange(int pos, int itemCount, Object payload) {
+        mAdapter.notifyItemRangeChanged(pos, itemCount, payload);
+    }
+
+    public void updateItem(int pos, Object payload) {
+        mAdapter.notifyItemChanged(pos, payload);
+    }
+
     private void setCompletedData(List<BrickInfo> data) {
         rebuildPositionCache(data);
         mAdapter.setData(data);
