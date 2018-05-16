@@ -12,6 +12,9 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  */
 class BrickRecyclerAdapter extends RecyclerView.Adapter<AbstractBrickHolder> {
+
+    public static final String TAG = "BrickRecyclerAdapter";
+
     private static final int UNKNOWN_BRICK_TYPE = -1;
     private static final Map<Integer, String> sTypeMap = new ConcurrentHashMap<>(); // 保存字符串组件类型与数字ViewHolder类型映射
 

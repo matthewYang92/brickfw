@@ -10,8 +10,8 @@ Add this in your app build.gradle:
 ```java
 dependencies {
     ...
-    compile 'io.yang:brickfw-source:2.4.7'
-    annotationProcessor 'io.yang:brickfw-compiler:2.4.7'
+    compile 'io.yang:brickfw-source:2.5.3'
+    annotationProcessor 'io.yang:brickfw-compiler:2.5.3'
 }
 ```
 
@@ -19,30 +19,52 @@ dependencies {
 
 使用方法：</br>
 1：通过注解@BrickView(value = "type")定义itemView</br>
-2：BrickRecyclerView.addData("type", data)生成列表
+2: 构建List<BrickInfo> bricks列表
+3：BrickRecyclerView.setBrickList(bricks)生成列表
 
 简单点击事件通过注解@OnBrickItemClick, @OnBrickItemLongClick处理，用法与ButterKnife相似
 
-更多用法详见demo
+详情见demo
 
 ### 初始化
 ```java
-    @BrickInit
     public class App extends Application {
         @Override
         public void onCreate() {
             ....
-            BrickFactory.init(getClass());
+            BrickFactory.init();
         }
+    }
+```
+
+### BrickInfo数据结构
+```java
+    public class BrickInfo {
+
+        private String mType;                   // 组件类型
+
+        private Object mExtra;                  // 对应数据data，onBindViewHolder需要绑定的数据
+
+        private int mColumns = 1;               //布局信息 列数
+
+        private BrickPositionInfo positionInfo; //位置信息 加载到列表后赋值
+
+        ....
     }
 ```
 
 ### 生成BrickRecyclerView列表
 ```java
 
+
+List<BrickInfo> bricks = new ArrayList();
 for (int i = 0; i < 5; i++) {
-    brickRecyclerView.addData("image_and_text", new ImageText(url, content));
+    BrickInfo info = new Brick();
+    info.setType("image_and_text");
+    info.setExtra(new ImageText(url, content)));
+    bricks.add(info);
 }
+brickRecyclerView.setBrickList(bricks);
 
 @BrickView("image_and_text")
 public class ImageTextView extends FrameLayout {
@@ -79,30 +101,33 @@ public class ImageTextView extends FrameLayout {
     //设置事件处理者
     brickRecyclerView.setEventHandler(this);
 
-    @OnBrickItemClick("simple_image")
-    public void onClickImage(BrickInfo info, ImageView imageView) {
+    @OnBrickItemClick("image_and_text")
+    public void onClickImage(BrickInfo info, ImageTextView view) {
         ...
     }
-
-    //自定义事件
-    @OnBrickEvent(value = "image_and_text", eventType = 0)
-    public void handleImageTextClickEvent(BrickInfo info, Object... params) {
-        ...
-    }
-```
-
-### 关于模块数据类BrickInfo
-```java
-    String mType;           // 模块类型
-    Object mExtra;          // 本地字段，用于存储不同模块设置的个性数据
-    int mColumns = 1;      //此模块的占位标识，默认为1，即一行一个模块
 ```
 
 ### BrickRecyclerView的一些常用方法
 ```java
+    /**
+    布局相关
+    **/
     setOrientation(int orientation); //设置列表方向 HORIZONTAL VERTICAL
     setStaggeredLayout(int columns); //设置列表为瀑布流布局
     setNormalLayout(Context context); //设置列表为普通布局 默认行数为1
+
+    /**
+    局部刷新相关
+    **/
+    updateRange(int pos, int itemCount);
+    updateItem(int pos);
+    updateRange(int pos, int itemCount, Object payload); //带payload,实现itemView内局部刷新
+    updateItem(int pos, Object payload); //带payload,实现itemView内局部刷新
+
+    /**
+    动画相关
+    **/
+    setDefaultAnimator(boolean open); //是否开启默认动画
 ```
 
 ### 分割线的使用
