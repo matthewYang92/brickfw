@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ import yang.brickviewdemo.main.entity.UserInfo;
  * e-mail: yangtian@yy.com
  */
 @BrickView(BrickType.RANK_LIST)
-public class RankListView extends LinearLayout {
+public class RankListView extends FrameLayout {
 
     @BindView(R.id.recycler)
     BrickRecyclerView recyclerView;

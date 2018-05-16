@@ -3,7 +3,7 @@ package yang.brickviewdemo.main.item;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -23,7 +23,7 @@ import yang.brickviewdemo.widget.CircleImageView;
  * e-mail: yangtian@yy.com
  */
 @BrickView(BrickType.RANK_ITEM)
-public class RankItemView extends LinearLayout {
+public class RankItemView extends FrameLayout {
 
     @BindView(R.id.image_head)
     CircleImageView head;
