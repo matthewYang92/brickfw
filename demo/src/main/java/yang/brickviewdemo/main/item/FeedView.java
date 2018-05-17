@@ -45,7 +45,7 @@ public class FeedView extends AppCompatImageView implements IDecoration {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension(widthMeasureSpec, widthMeasureSpec);
+        setMeasuredDimension(getMeasuredWidth(), getMeasuredWidth());
     }
 
     /**
