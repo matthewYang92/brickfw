@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
  */
 @Documented
 @Target({ElementType.TYPE, ElementType.FIELD})
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(RetentionPolicy.SOURCE)
 public @interface BrickView {
     /**
      * 组件类型
