@@ -50,7 +50,7 @@ public class InitializerFileBuilder {
                                         , ClassName.get(packageName, "AbstractBrickBuilder"))
                         , "brickBuilderMap");
         //先clear原始map
-        initBuilder.addStatement("brickBuilderMap.clear()");
+//        initBuilder.addStatement("brickBuilderMap.clear()");
         //将@BrickView @BrickHolder注释的类添加到map中
         for (String type : brickBuilderMap.keySet()) {
             BrickElement brickElement = brickBuilderMap.get(type);
@@ -82,7 +82,7 @@ public class InitializerFileBuilder {
                                         , ClassName.get(packageName, "AbstractBrickEventBinder"))
                         , "brickBinderMap");
         //先clear原始map
-        initBuilder.addStatement("brickBinderMap.clear()");
+//        initBuilder.addStatement("brickBinderMap.clear()");
         //将生成的binder类添加到map中
         for (Element element : eventHandlerElements) {
             String builderName = element.getSimpleName() + "EventBinder";
