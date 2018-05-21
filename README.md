@@ -10,8 +10,8 @@ Add this in your app build.gradle:
 ```java
 dependencies {
     ...
-    compile 'io.yang:brickfw-source:2.5.3'
-    annotationProcessor 'io.yang:brickfw-compiler:2.5.3'
+    compile 'io.yang:brickfw-source:2.5.4'
+    annotationProcessor 'io.yang:brickfw-compiler:2.5.4'
 }
 ```
 
@@ -133,7 +133,7 @@ brickRecyclerView.setBrickList(bricks);
 
 ### 分割线的使用
 ```java
-    View或Holder实现IDecoration接口
+    View实现IDecoration接口
 ```
 
 
