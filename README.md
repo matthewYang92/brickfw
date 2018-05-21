@@ -53,19 +53,8 @@ dependencies {
     }
 ```
 
-### 生成BrickRecyclerView列表
+### 自定义ItemView编写
 ```java
-
-
-List<BrickInfo> bricks = new ArrayList();
-for (int i = 0; i < 5; i++) {
-    BrickInfo info = new Brick();
-    info.setType("image_and_text");
-    info.setExtra(new ImageText(url, content)));
-    bricks.add(info);
-}
-brickRecyclerView.setBrickList(bricks);
-
 @BrickView("image_and_text")
 public class ImageTextView extends FrameLayout {
 
@@ -94,6 +83,18 @@ public class ImageTextView extends FrameLayout {
         text.setText(imageText.getContent());
     }
 }
+```
+
+### 生成BrickList列表,并且添加到BrickRecyclerView
+```java
+List<BrickInfo> bricks = new ArrayList();
+for (int i = 0; i < 5; i++) {
+    BrickInfo info = new Brick();
+    info.setType("image_and_text");
+    info.setExtra(new ImageText(url, content)));
+    bricks.add(info);
+}
+brickRecyclerView.setBrickList(bricks);
 ```
 
 ### 关于事件响应
