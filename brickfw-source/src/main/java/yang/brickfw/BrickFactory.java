@@ -5,9 +5,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -64,28 +62,14 @@ public class BrickFactory {
         String className = handler.getClass().getName();
         AbstractBrickEventBinder eventHandler = sBrickEventBinderMap.get(className);
         if (null != eventHandler) {
-            if (classMethodsContainAnnotation(handler.getClass(), OnBrickItemClick.class)) {
-                eventHandler.bindBrickOnItemClick(handler, itemView, info);
-            }
-            if (classMethodsContainAnnotation(handler.getClass(), OnBrickItemLongClick.class)) {
-                eventHandler.bindBrickOnItemLongClick(handler, itemView, info);
-            }
-            if (classMethodsContainAnnotation(handler.getClass(), OnBrickEvent.class)) {
-                eventHandler.bindBrickOnEvent(handler, itemView, info);
-            }
+            eventHandler.bindBrickOnItemClick(handler, itemView, info);
+            eventHandler.bindBrickOnItemLongClick(handler, itemView, info);
+            eventHandler.bindBrickOnEvent(handler, itemView, info);
         } else {
             Log.w(TAG, "unSupport handler class " + className);
         }
     }
 
-    private static  boolean classMethodsContainAnnotation(Class<?> aClass, Class<? extends Annotation> annotationType) {
-        for(Method method : aClass.getDeclaredMethods()) {
-            if (null != method.getAnnotation(annotationType)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     /**
      * 创建指定类型的Brick模块
