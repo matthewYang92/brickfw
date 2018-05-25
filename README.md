@@ -1,7 +1,10 @@
 # BrickRecyclerView Framework
 
-## 背景
-基于RecyclerView封装的列表框架，快速实现多类型列表UI，注解编程，解放你的劳动力，最快只需要写一个View！
+## 简介
+基于RecyclerView高度封装的列表框架，简单实现多种类型Item列表。
++ 不需要编写Adapter、不需要考虑LayoutManager的布局适配、不需要去处理多类型Item的判断逻辑 。
++ 你只需要会写View！你就能简单地实现一个复杂的多类型RecyclerView。
++ 傻瓜式构造复杂列表控件，解放脑力劳动力，让你的代码更加简洁优雅。
 
 ## Gradle依赖
 
@@ -17,14 +20,12 @@ dependencies {
 
 ## 代码使用
 
-使用方法：</br>
-1：通过注解@BrickView(value = "type")定义itemView</br>
-2: 构建List<BrickInfo> bricks列表
-3：BrickRecyclerView.setBrickList(bricks)生成列表
+使用方法
+1.  通过注解@BrickView(value = "type")定义itemView
+2.  构建List<BrickInfo> bricks列表
+3.  BrickRecyclerView.setBrickList(bricks)生成列表
 
-简单点击事件通过注解@OnBrickItemClick, @OnBrickItemLongClick处理，用法与ButterKnife相似
-
-详情见demo
+简单点击事件通过注解@OnBrickItemClick, @OnBrickItemLongClick处理，用法与ButterKnife相似。详见demo
 
 ### 初始化
 ```java
