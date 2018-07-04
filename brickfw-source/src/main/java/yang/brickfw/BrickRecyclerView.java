@@ -571,12 +571,6 @@ public class BrickRecyclerView extends RecyclerView {
         return null;
     }
 
-    @Override
-    public boolean dispatchNestedScroll(int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int[] offsetInWindow) {
-        super.dispatchNestedScroll(dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, offsetInWindow);
-        return false;
-    }
-
     private void init(Context context, @Nullable AttributeSet attrs) {
         mAdapter = new BrickRecyclerAdapter();
         setLayoutManager(createLayoutManager(context, 1));

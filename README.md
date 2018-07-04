@@ -13,8 +13,8 @@ Add this in your app build.gradle:
 ```java
 dependencies {
     ...
-    compile 'io.yang:brickfw-source:2.5.4'
-    annotationProcessor 'io.yang:brickfw-compiler:2.5.4'
+    compile 'io.yang:brickfw-source:2.5.5'
+    annotationProcessor 'io.yang:brickfw-compiler:2.5.5'
 }
 ```
 

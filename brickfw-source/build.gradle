@@ -11,7 +11,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
-        versionName "2.5.4"
+        versionName "2.5.5"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -50,7 +50,7 @@ allprojects {
 def siteUrl = 'https://github.com/matthewYang92/brickfw' // 项目的主页
 def gitUrl = 'https://github.com/matthewYang92/brickfw.git' // Git仓库的url
 group = "io.yang" // Maven Group ID for the artifact，一般填你唯一的包名
-version = "2.5.4"
+version = "2.5.5"
 
 install {
     repositories.mavenInstaller {
