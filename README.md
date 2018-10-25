@@ -137,4 +137,11 @@ brickRecyclerView.setBrickList(bricks);
     View实现IDecoration接口
 ```
 
+### 混淆设置
+-keep class yang.brickfw.**{*;}
+-keep class 包名.BrickInitializer
+-keep class 包名.BrickInitializer{ *; }
+-keepclassmembers class * {
+    @yang.brickfw.* <methods>;
+}
 
