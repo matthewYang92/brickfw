@@ -13,8 +13,8 @@ Add this in your app build.gradle:
 ```java
 dependencies {
     ...
-    compile 'io.yang:brickfw-source:2.5.5'
-    annotationProcessor 'io.yang:brickfw-compiler:2.5.5'
+    compile 'io.yang:brickfw-source:2.6.0'
+    annotationProcessor 'io.yang:brickfw-compiler:2.6.0'
 }
 ```
 
@@ -47,6 +47,8 @@ dependencies {
         private Object mExtra;                  // 对应数据data，onBindViewHolder需要绑定的数据
 
         private int mColumns = 1;               //布局信息 列数
+        
+        private boolean isRecyclable = true;    //是否回收
 
         private BrickPositionInfo positionInfo; //位置信息 加载到列表后赋值
 

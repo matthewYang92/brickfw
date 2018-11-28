@@ -14,6 +14,8 @@ public class BrickInfo {
 
     private BrickPositionInfo positionInfo; //位置信息 加载到列表后赋值
 
+    private boolean isRecyclable = true;
+
     public BrickInfo(String type) {
         mType = type;
     }
@@ -69,6 +71,14 @@ public class BrickInfo {
 
     public void setPositionInfo(BrickPositionInfo positionInfo) {
         this.positionInfo = positionInfo;
+    }
+
+    public boolean isRecyclable() {
+        return isRecyclable;
+    }
+
+    public void setRecyclable(boolean recyclable) {
+        isRecyclable = recyclable;
     }
 
     @Override public String toString() {

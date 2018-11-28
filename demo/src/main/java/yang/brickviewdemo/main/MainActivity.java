@@ -53,8 +53,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void setBrickData() {
         List<BrickInfo> brickData = new ArrayList<>();
-        brickData.add(createRankListBrick()); //添加排行榜item
         brickData.add(createBannerBrick(imageUrls[4]));  //添加Banner item
+        brickData.add(createBannerBrick(imageUrls[2]));  //添加Banner item
+        brickData.add(createRankListBrick()); //添加排行榜item
         for (String url : imageUrls) {
             brickData.add(createFeedItemBrick(url));
         }

@@ -79,6 +79,7 @@ public class HolderFileBuilder {
         if (hasSetDataMethod()) {
             TypeName extraType = ClassName.get(brickElement.getDataMethodParameter(0).asType());
             setBrickBuilder
+                    .addStatement("setIsRecyclable(info.isRecyclable())")
                     .addStatement("$T data = ($T) info.getExtra()", extraType, extraType)
                     .addStatement("$L.$N(data)", brickElement.getViewParamName(), brickElement.getDataMethodSimpleName());
         }
