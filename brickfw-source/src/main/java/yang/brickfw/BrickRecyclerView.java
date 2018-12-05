@@ -533,6 +533,7 @@ public class BrickRecyclerView extends RecyclerView {
             p.setIdxInGlobal(i);
             p.setIdxInGroup(idxInGroup);
             p.setGroupSize(groupSize);
+            p.setGlobalSize(extendedData.size());
             mBrickPositionCache.put(i, p);
             current.setPositionInfo(p);
 

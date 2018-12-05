@@ -7,11 +7,13 @@ public class BrickPositionInfo {
     int mIdxInGlobal;       // 在整个组件页中的位置
     int mIdxInGroup;        // 在上下文相同类型中的位置
     int mGroupSize;         // 附近相同类型组件的数目
+    int mGlobalSize;        // 整个组件长度
 
     public void reset() {
         mIdxInGlobal = 0;
         mIdxInGroup = 0;
         mGroupSize = 0;
+        mGlobalSize = 0;
     }
 
     public int getIdxInGlobal() {
@@ -54,6 +56,22 @@ public class BrickPositionInfo {
 
     public void setGroupSize(int groupSize) {
         mGroupSize = groupSize;
+    }
+
+    public boolean isFirstInGloba() {
+        return mIdxInGlobal == 0;
+    }
+
+    public boolean isLastInGloba() {
+        return mIdxInGlobal + 1 == mGlobalSize;
+    }
+
+    public int getGlobalSize() {
+        return mGlobalSize;
+    }
+
+    public void setGlobalSize(int mGlobalSize) {
+        this.mGlobalSize = mGlobalSize;
     }
 
     @Override
